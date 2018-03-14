@@ -6,9 +6,9 @@ module Whats
       attr_reader :response
 
       def initialize(message, response)
-        @response = response
-
         super message
+
+        @response = response
       end
     end
   end
