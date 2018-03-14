@@ -7,10 +7,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "whats/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "whatsapp"
-  spec.version       = Whatsapp::VERSION
-  spec.authors       = ["Bruno Soares"]
-  spec.email         = ["bruno@bsoares.com.br"]
+  spec.name    = "whatsapp"
+  spec.version = Whats::VERSION
+  spec.authors = ["Bruno Soares", "GetNinjas"]
+  spec.email   = ["bruno@bsoares.com", "tech@getninjas.com.br"]
 
   spec.description   = spec.summary = "An interface to WhatsApp Enterprise API."
   spec.homepage      = "https://github.com/getninjas/whatsapp"
