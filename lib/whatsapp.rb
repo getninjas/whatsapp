@@ -1,5 +1,10 @@
-require "whatsapp/version"
+# frozen_string_literal: true
 
-module Whatsapp
-  # Your code goes here...
-end
+# Dependencies
+require "typhoeus"
+
+# Source
+require "whats/version"
+require "whats/errors/request_error"
+require "whats/client"
+require "whats/api"
