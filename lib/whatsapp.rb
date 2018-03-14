@@ -1,5 +1,6 @@
-require "whatsapp/version"
+# frozen_string_literal: true
 
-module Whatsapp
-  # Your code goes here...
-end
+require "whats/version"
+require "whats/errors/request_error"
+require "whats/client"
+require "whats/api"
