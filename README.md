@@ -1,39 +1,69 @@
-# Whatsapp
+# WhatsApp
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/whatsapp`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+An ruby interface to WhatsApp Enterprise API.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'whatsapp'
+gem "whatsapp"
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install whatsapp
 
 ## Usage
 
-TODO: Write usage instructions here
+### Instantiation
 
-## Development
+Create an instance of the API client passing the base path of your endpoint:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+whats = Whats::Api.new("https://my-whatsapp-endpoint.com")
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Check Contacts
 
-## Contributing
+Take a look [here](https://developers.facebook.com/docs/whatsapp/check-contacts) (WhatsApp Check Contacts doc) for more information.
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/whatsapp.
+```ruby
+whats.check_contacts(["+5511942424242"])
 
-## License
+# output:
+{
+  "meta" => {
+    "waent version" => "2.18.4"
+  },
+  "payload" => {
+    "results" => [
+      {
+        "input_number" => "+5511942424242",
+        "wa_exists" => true,
+        "wa_username" => "5511942424242"
+      }
+    ],
+    "total" => 1
+  },
+  "error" => false
+}
+```
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+### Send Message
+
+Take a look [here](https://developers.facebook.com/docs/whatsapp/send-api) (WhatsApp Send Message doc) for more information.
+
+*The first parameter is the WhatsApp **username**!*
+
+```ruby
+whats.send_message("5511942424242", "Message goes here.")
+
+# output:
+
+{
+  "meta" => {
+    "waent version" => "2.18.4"
+  },
+  "payload" => {
+    "message_id" => "BAEC4D1D7549842627"
+  },
+  "error" => false
+}
+```
