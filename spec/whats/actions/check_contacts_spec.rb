@@ -12,7 +12,7 @@ RSpec.describe Whats::Actions::CheckContacts do
   describe "#call" do
     it "calls client request with correct path and payload" do
       expect(client).to receive(:request).with(
-        "/api/check_contacts.php",
+        Whats::Actions::CheckContacts::PATH,
         payload: {
           blocking: "wait",
           users:    numbers

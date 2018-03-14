@@ -14,7 +14,7 @@ RSpec.describe Whats::Actions::SendMessage do
   describe "#call" do
     it "calls client request with correct path and payload" do
       expect(client).to receive(:request).with(
-        "/api/rest_send.php",
+        Whats::Actions::SendMessage::PATH,
         payload: {
           to:   username,
           body: body

@@ -20,7 +20,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
   describe "#call" do
     it "calls client request with correct path and payload" do
       expect(client).to receive(:request).with(
-        "/api/rest_send.php",
+        Whats::Actions::SendHsmMessage::PATH,
         payload: {
           to: username,
           hsm: {

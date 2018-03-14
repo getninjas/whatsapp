@@ -15,7 +15,7 @@ module Whats
         body: payload.to_json
       )
 
-      unless response.success?
+      if response.failure?
         raise Whats::Errors::RequestError.new("API request error.", response)
       end
 
