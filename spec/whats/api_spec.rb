@@ -30,6 +30,46 @@ RSpec.describe Whats::Api do
     end
   end
 
+  describe "#check_contact" do
+    let(:number) { "+5511942424242" }
+
+    let(:response) do
+      {
+        "meta" => {
+          "waent version" => "2.18.4"
+        },
+        "payload" => {
+          "results" => [
+            {
+              "input_number" => "+5511942424242",
+              "wa_exists" => true,
+              "wa_username" => "5511942424242"
+            }
+          ],
+          "total" => 1
+        },
+        "error" => false
+      }
+    end
+
+    before do
+      allow(subject)
+        .to receive(:check_contacts)
+        .with([number])
+        .and_return response
+    end
+
+    it "formats the response for a single number" do
+      result = subject.check_contact(number)
+
+      expect(result).to eq(
+        "input_number" => "+5511942424242",
+        "wa_exists" => true,
+        "wa_username" => "5511942424242"
+      )
+    end
+  end
+
   describe "#send_message" do
     let(:username) { "5511942424242" }
 

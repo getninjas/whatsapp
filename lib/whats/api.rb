@@ -14,6 +14,17 @@ module Whats
       Actions::CheckContacts.new(client, numbers).call
     end
 
+    def check_contact(number)
+      response = check_contacts([number])
+
+      result = \
+        response["payload"]["results"].reduce({}) do |temp, hash|
+          temp.merge(hash["input_number"] => hash)
+        end
+
+      result[number]
+    end
+
     def send_message(username, body)
       Actions::SendMessage.new(client, username, body).call
     end
