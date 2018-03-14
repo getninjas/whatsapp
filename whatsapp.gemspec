@@ -12,9 +12,9 @@ Gem::Specification.new do |spec|
   spec.authors = ["Bruno Soares", "GetNinjas"]
   spec.email   = ["bruno@bsoares.com", "tech@getninjas.com.br"]
 
-  spec.description   = spec.summary = "An interface to WhatsApp Enterprise API."
-  spec.homepage      = "https://github.com/getninjas/whatsapp"
-  spec.license       = "MIT"
+  spec.description = spec.summary = "An interface to WhatsApp Enterprise API."
+  spec.homepage    = "https://github.com/getninjas/whatsapp"
+  spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -35,4 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "webmock"
+
+  spec.add_dependency "typhoeus"
 end
