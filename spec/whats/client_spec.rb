@@ -3,9 +3,9 @@
 require "spec_helper"
 
 RSpec.describe Whats::Client do
-  let(:base_path) { "http://whats.test" }
-
   subject { described_class.new(base_path) }
+
+  let(:base_path) { "http://whats.test" }
 
   describe "#request" do
     let(:path) { "/path" }

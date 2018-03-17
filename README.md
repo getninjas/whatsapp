@@ -56,7 +56,6 @@ Take a look [here](https://developers.facebook.com/docs/whatsapp/send-api) (What
 whats.send_message("5511942424242", "Message goes here.")
 
 # output:
-
 {
   "meta" => {
     "waent version" => "2.18.4"
