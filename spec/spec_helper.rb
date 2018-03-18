@@ -3,6 +3,7 @@
 require "bundler/setup"
 require "whatsapp"
 require "webmock/rspec"
+require "pry-byebug"
 
 WebMock.disable_net_connect!
 

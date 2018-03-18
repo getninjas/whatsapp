@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "waent version": "2.18.4"
+  },
+  "payload": {
+    "results": [
+      {
+        "input_number": "%{INPUT_NUMBER_1}",
+        "wa_exists": %{EXISTS_1},
+        "wa_username": "%{USERNAME_1}"
+      },
+      {
+        "input_number": "%{INPUT_NUMBER_2}",
+        "wa_exists": %{EXISTS_2},
+        "wa_username": "%{USERNAME_2}"
+      }
+    ],
+    "total": 2
+  },
+  "error": false
+}

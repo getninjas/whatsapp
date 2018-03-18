@@ -1,0 +1,7 @@
+{
+  "payload": null,
+  "error": {
+    "errorcode": 400,
+    "errortext": "missing params payload|to"
+  }
+}

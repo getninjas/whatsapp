@@ -1,0 +1,8 @@
+{
+  "payload": {
+    "blocking": "%{BLOCKING}",
+    "users": [
+      "%{INPUT_NUMBER}"
+    ]
+  }
+}
