@@ -1,6 +1,10 @@
+require: rubocop-rspec
+
 inherit_gem:
   rubocop-github:
-    - config/default.yml
+    - "config/default.yml"
+  rubocop-rspec:
+    - "config/default.yml"
 
 Metrics/LineLength:
   Max: 120
@@ -16,4 +20,7 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Exclude:
-    - "spec/**/*"
+    - "spec/**/*.rb"
+
+RSpec/ExampleLength:
+  Max: 20
