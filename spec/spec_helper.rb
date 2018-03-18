@@ -5,6 +5,8 @@ require "whatsapp"
 require "webmock/rspec"
 require "pry-byebug"
 
+Dir["./spec/support/**/*.rb"].each { |file| require file }
+
 WebMock.disable_net_connect!
 
 RSpec.configure do |config|
