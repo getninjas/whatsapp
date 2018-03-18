@@ -66,3 +66,41 @@ whats.send_message("5511942424242", "Message goes here.")
   "error" => false
 }
 ```
+
+## Tests
+
+### Running tests
+
+```shell
+rspec .
+```
+
+### Debugging specs
+
+You can print all stubs using the environment variable `PRINT_STUBS=true` like this:
+
+```shell
+PRINT_STUBS=true rspec .
+```
+
+Which results in:
+
+```
+Whats::Actions::SendMessage
+  #call
+    with valid params
++ ------ STUB ------
++ Request:  POST http://test.local/api/rest_send.php with body "{\"payload\":{\"to\":\"5511944442222\",\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"payload":{"message_id":"ID"},"error":false}
++ ------------------
+      returns message_in in the payload
+    with unknown contact
++ ------ STUB ------
++ Request:  POST http://test.local/api/rest_send.php with body "{\"payload\":{\"to\":\"123\",\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"payload":null,"error":{"errorcode":404,"errortext":"unknown contact"}}
++ ------------------
+      returns error unknown contact
+
+Finished in 0.0077 seconds (files took 0.59843 seconds to load)
+2 examples, 0 failures
+```

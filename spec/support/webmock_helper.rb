@@ -90,7 +90,7 @@ module WebmockHelper
   end
 
   def stub_default(url, method: :post, request_body:, response_body:, status: 200)
-    stub_request(method, url)
+    stub = stub_request(method, url)
       .with(
         body: request_body,
         headers: { "Content-Type" => "application/json" }
@@ -99,5 +99,14 @@ module WebmockHelper
         body: response_body,
         status: status
       )
+
+    print_stub(stub) if ENV["PRINT_STUBS"] == "true"
+  end
+
+  def print_stub(stub)
+    puts "+ ------ STUB ------"
+    puts "+ Request:  #{stub.request_pattern}"
+    puts "+ Response: #{stub.response.body}"
+    puts "+ ------------------"
   end
 end
