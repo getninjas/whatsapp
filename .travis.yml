@@ -18,3 +18,7 @@ env:
 script:
   - bundle exec rspec spec
   - bundle exec rubocop --require rubocop-rspec
+
+addons:
+  code_climate:
+    repo_token: 0870d9d4f3c1ef2d06394e4934a87e8f16df9380db69e53c4cf8fcdd327c1950
