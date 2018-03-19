@@ -15,4 +15,6 @@ notifications:
 env:
   - PRINT_STUBS=true
 
-script: bundle exec rspec spec
+script:
+  - bundle exec rspec spec
+  - rubocop -c .rubocop.yml .
