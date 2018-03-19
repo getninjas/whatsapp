@@ -17,4 +17,4 @@ env:
 
 script:
   - bundle exec rspec spec
-  - rubocop -c .rubocop.yml .
+  - bundle exec rubocop --require rubocop-rspec
