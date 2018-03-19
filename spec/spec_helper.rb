@@ -3,6 +3,11 @@
 require "bundler/setup"
 require "whatsapp"
 require "webmock/rspec"
+require "pry-byebug"
+require "simplecov"
+require "simplecov-console"
+
+Dir["./spec/support/**/*.rb"].each { |file| require file }
 
 WebMock.disable_net_connect!
 
@@ -15,3 +20,6 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
+SimpleCov.start

@@ -3,35 +3,47 @@
 require "spec_helper"
 
 RSpec.describe Whats::Actions::SendHsmMessage do
-  let(:client) { Whats::Client.new("http://test.local") }
+  include WebmockHelper
 
-  let(:username) { "5511944442222" }
-
-  let(:namespace) { "namespace" }
-
-  let(:element_name) { "element_name" }
-
-  let(:params) { { key: "value" } }
-
-  subject do
+  subject(:action) do
     described_class.new(client, username, namespace, element_name, params)
   end
 
-  describe "#call" do
-    it "calls client request with correct path and payload" do
-      expect(client).to receive(:request).with(
-        Whats::Actions::SendHsmMessage::PATH,
-        payload: {
-          to: username,
-          hsm: {
-            namespace:          namespace,
-            element_name:       element_name,
-            localizable_params: params
-          }
-        }
-      )
+  let(:client) { Whats::Client.new(WebmockHelper::BASE_PATH) }
 
-      subject.call
+  let(:username) { "55119000111" }
+
+  let(:namespace) { "whatsapp:hsm:banks:enterprisebank" }
+
+  let(:element_name) { "two_factor" }
+
+  let(:params) { { "default" => "1234" } }
+
+  describe "#call" do
+    context "with valid params" do
+      before { stub_send_hsm_message(username, namespace, element_name, params: params) }
+
+      it "returns message_in in the payload" do
+        expect(action.call["payload"]).to eq "message_id" => "ID"
+      end
+
+      it "returns error as false" do
+        expect(action.call["error"]).to eq false
+      end
+    end
+
+    context "with unknown contact" do
+      let(:username) { "123" }
+
+      before { stub_send_hsm_message_with_unknown_contact_response(username, namespace, element_name, params: params) }
+
+      it "returns payload as nil" do
+        expect(action.call["payload"]).to be_nil
+      end
+
+      it "returns error unknown contact" do
+        expect(action.call["error"]).to eq "errorcode" => 404, "errortext" => "unknown contact"
+      end
     end
   end
 end

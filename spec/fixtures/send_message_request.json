@@ -1,0 +1,6 @@
+{
+  "payload": {
+    "to": "%{USERNAME}",
+    "body": "%{BODY}"
+  }
+}

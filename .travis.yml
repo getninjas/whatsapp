@@ -1,5 +1,24 @@
-sudo: false
 language: ruby
+
+sudo: false
+
 rvm:
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
   - 2.5.0
+
 before_install: gem install bundler -v 1.16.1
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+env:
+  - PRINT_STUBS=true
+
+script:
+  - bundle exec rspec spec
+  - bundle exec rubocop --require rubocop-rspec
+  - bundle exec codeclimate-test-reporter

@@ -3,9 +3,9 @@
 require "spec_helper"
 
 RSpec.describe Whats::Client do
-  let(:base_path) { "http://whats.test" }
+  subject(:client) { described_class.new(base_path) }
 
-  subject { described_class.new(base_path) }
+  let(:base_path) { WebmockHelper::BASE_PATH }
 
   describe "#request" do
     let(:path) { "/path" }
@@ -18,7 +18,7 @@ RSpec.describe Whats::Client do
 
     let(:response) { { key: "value" }.to_json }
 
-    context "in a happy path" do
+    context "with valid params" do
       before do
         stub_request(:post, full_path)
           .with(
@@ -29,7 +29,7 @@ RSpec.describe Whats::Client do
       end
 
       it "executes a POST request properly" do
-        subject.request("/path", payload)
+        client.request("/path", payload)
 
         expect(WebMock)
           .to have_requested(:post, full_path)
@@ -40,7 +40,7 @@ RSpec.describe Whats::Client do
       end
 
       it "returns the response represented in hash" do
-        result = subject.request("/path", payload)
+        result = client.request("/path", payload)
 
         expect(result).to eq("key" => "value")
       end
@@ -57,8 +57,13 @@ RSpec.describe Whats::Client do
       end
 
       it "raises a specific error" do
-        expect { subject.request("/path", payload) }.to raise_error do |error|
-          expect(error.class).to eq Whats::Errors::RequestError
+        expect { client.request("/path", payload) }.to raise_error Whats::Errors::RequestError
+      end
+
+      it "raises an error with response property" do
+        begin
+          client.request("/path", payload)
+        rescue Whats::Errors::RequestError => error
           expect(error.response.class).to eq Typhoeus::Response
         end
       end

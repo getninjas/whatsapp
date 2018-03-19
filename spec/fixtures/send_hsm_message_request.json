@@ -1,0 +1,10 @@
+{
+  "payload": {
+    "to": "%{USERNAME}",
+    "hsm": {
+      "namespace": "%{NAMESPACE}",
+      "element_name": "%{ELEMENT_NAME}",
+      "localizable_params": %{PARAMS}
+    }
+  }
+}
