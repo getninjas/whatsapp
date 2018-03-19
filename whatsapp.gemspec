@@ -11,7 +11,8 @@ Gem::Specification.new do |spec|
   spec.version     = Whats::VERSION
   spec.authors     = ["Bruno Soares", "GetNinjas"]
   spec.email       = ["bruno@bsoares.com", "tech@getninjas.com.br"]
-  spec.description = spec.summary = "An interface to WhatsApp Enterprise API."
+  spec.summary     = "WhatsApp Enterprise API interface."
+  spec.description = "A Ruby interface to WhatsApp Enterprise API."
   spec.homepage    = "https://github.com/getninjas/whatsapp"
   spec.license     = "MIT"
 
