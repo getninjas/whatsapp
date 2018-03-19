@@ -1,5 +1,7 @@
 # WhatsApp
 
+[![Build Status](https://travis-ci.org/getninjas/whatsapp.svg?branch=master)](https://travis-ci.org/getninjas/whatsapp)
+
 An ruby interface to WhatsApp Enterprise API.
 
 ## Installation
