@@ -12,6 +12,8 @@ GEM
     ansi (1.5.0)
     ast (2.4.0)
     byebug (10.0.0)
+    codeclimate-test-reporter (1.0.7)
+      simplecov
     coderay (1.1.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -85,6 +87,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
+  codeclimate-test-reporter (~> 1.0.7)
   pry-byebug (~> 3.6)
   rake (~> 10.0)
   rspec (~> 3.0)
