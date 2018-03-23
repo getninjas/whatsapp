@@ -10,11 +10,6 @@ rvm:
 
 before_install: gem install bundler -v 1.16.1
 
-notifications:
-  email:
-    on_success: change
-    on_failure: always
-
 env:
   - PRINT_STUBS=true
 
