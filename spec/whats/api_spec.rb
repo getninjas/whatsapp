@@ -7,15 +7,14 @@ RSpec.describe Whats::Api do
 
   let(:base_path) { WebmockHelper::BASE_PATH }
 
-  let(:client) { instance_double("Whats::Client") }
+  let(:client) { instance_double Whats::Client }
 
   before do
     allow(Whats::Client).to receive(:new).with(base_path).and_return client
   end
 
   describe "#check_contacts" do
-    let(:action) { instance_double("Whats::Actions::CheckContacts", call: "action result") }
-
+    let(:action) { instance_double Whats::Actions::CheckContacts, call: nil }
     let(:numbers) { ["+5511942424242"] }
 
     before do
