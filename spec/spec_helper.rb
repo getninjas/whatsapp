@@ -6,6 +6,7 @@ require "webmock/rspec"
 require "pry-byebug"
 require "simplecov"
 require "simplecov-console"
+
 Dir["./spec/support/**/*.rb"].each { |file| require file }
 
 WebMock.disable_net_connect!
