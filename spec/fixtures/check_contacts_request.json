@@ -1,8 +1,6 @@
 {
-  "payload": {
-    "blocking": "%{BLOCKING}",
-    "users": [
-      "%{INPUT_NUMBER}"
-    ]
-  }
+  "blocking": "wait",
+  "contacts": [
+    "%{contact}"
+  ]
 }

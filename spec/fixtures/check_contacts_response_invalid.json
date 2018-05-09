@@ -2,8 +2,7 @@
   "contacts": [
     {
       "input": "%{input}",
-      "status": "valid",
-      "wa_id": "%{wa_id}"
+      "status": "invalid"
     }
   ]
 }

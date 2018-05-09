@@ -7,32 +7,33 @@ module FixtureHelper
     JSON.parse(data).to_json
   end
 
-  def check_contacts_request(input_number:, blocking: "wait")
-    load_json("check_contacts_request", INPUT_NUMBER: input_number, BLOCKING: blocking)
+  def check_contacts_request(contact:)
+    load_json("check_contacts_request", contact: contact)
   end
 
-  def check_contacts_response(input_number:, exists: true, username:)
-    load_json("check_contacts_response", INPUT_NUMBER: input_number, EXISTS: exists, USERNAME: username)
+  def check_contacts_response(input:, wa_id:)
+    load_json("check_contacts_response", input: input, wa_id: wa_id)
   end
 
-  def check_multiple_contacts_request(input_numbers:, blocking: "wait")
+  def check_contacts_response_invalid(input:)
+    load_json("check_contacts_response_invalid", input: input)
+  end
+
+  def check_multiple_contacts_request(contacts:)
     load_json(
       "check_multiple_contacts_request",
-      BLOCKING:       blocking,
-      INPUT_NUMBER_1: input_numbers[0],
-      INPUT_NUMBER_2: input_numbers[1]
+      contact_1: contacts[0],
+      contact_2: contacts[1]
     )
   end
 
-  def check_multiple_contacts_response(input_numbers:, exists: [true, true], usernames:)
+  def check_multiple_contacts_response(inputs:, wa_ids:)
     load_json(
       "check_multiple_contacts_response",
-      INPUT_NUMBER_1: input_numbers[0],
-      INPUT_NUMBER_2: input_numbers[1],
-      EXISTS_1:       exists[0],
-      EXISTS_2:       exists[1],
-      USERNAME_1:     usernames[0],
-      USERNAME_2:     usernames[1]
+      input_1: inputs[0],
+      input_2: inputs[1],
+      wa_id_1: wa_ids[0],
+      wa_id_2: wa_ids[1]
     )
   end
 

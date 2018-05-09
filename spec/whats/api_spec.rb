@@ -25,31 +25,28 @@ RSpec.describe Whats::Api do
     end
 
     it "calls the specific action" do
-      expect(api.check_contacts(numbers)).to eq "action result"
+      api.check_contacts(numbers)
+
+      expect(action).to have_received(:call)
     end
   end
 
   describe "#check_contact" do
-    let(:action) { instance_double("Whats::Actions::CheckContacts", call: response) }
+    let(:action) do
+     instance_double Whats::Actions::CheckContacts, call: response
+    end
 
     let(:number) { "+5511942424242" }
 
     let(:response) do
       {
-        "meta" => {
-          "waent version" => "2.18.4"
-        },
-        "payload" => {
-          "results" => [
-            {
-              "input_number" => "+5511942424242",
-              "wa_exists" => true,
-              "wa_username" => "5511942424242"
-            }
-          ],
-          "total" => 1
-        },
-        "error" => false
+        "contacts" => [
+          {
+            "input" => "+5511942424242",
+            "status" => "valid",
+            "wa_id" => "5511942424242"
+          }
+        ]
       }
     end
 
@@ -64,9 +61,9 @@ RSpec.describe Whats::Api do
       result = api.check_contact(number)
 
       expect(result).to eq(
-        "input_number" => "+5511942424242",
-        "wa_exists" => true,
-        "wa_username" => "5511942424242"
+        "input" => "+5511942424242",
+        "status" => "valid",
+        "wa_id" => "5511942424242"
       )
     end
   end
