@@ -3,7 +3,7 @@
 module Whats
   module Actions
     class CheckContacts
-      PATH = "/api/check_contacts.php"
+      PATH = "/v1/contacts"
 
       def initialize(client, numbers)
         @client  = client
