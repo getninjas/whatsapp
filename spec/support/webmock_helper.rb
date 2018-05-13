@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "fixture_helper"
+
 module WebmockHelper
   include FixtureHelper
 
@@ -7,27 +9,29 @@ module WebmockHelper
   CHECK_CONTACTS_URL = "#{BASE_PATH}#{Whats::Actions::CheckContacts::PATH}"
   SEND_MESSAGE_URL   = "#{BASE_PATH}#{Whats::Actions::SendHsmMessage::PATH}"
 
-  def stub_check_contacts_with_valid_number(input_number, username)
+  def stub_check_contacts_with_valid_number(contact, wa_id)
     stub_default(
       CHECK_CONTACTS_URL,
-      request_body: check_contacts_request(input_number: input_number),
-      response_body: check_contacts_response(input_number: input_number, username: username)
+      request_body: check_contacts_request(contact: contact),
+      response_body: check_contacts_response(input: contact, wa_id: wa_id)
     )
   end
 
-  def stub_check_contacts_with_valid_numbers(input_numbers, usernames)
+  def stub_check_contacts_with_valid_numbers(contacts, wa_ids)
     stub_default(
       CHECK_CONTACTS_URL,
-      request_body: check_multiple_contacts_request(input_numbers: input_numbers),
-      response_body: check_multiple_contacts_response(input_numbers: input_numbers, usernames: usernames)
+      request_body: check_multiple_contacts_request(contacts: contacts),
+      response_body: check_multiple_contacts_response(
+        inputs: contacts, wa_ids: wa_ids
+      )
     )
   end
 
-  def stub_check_contacts_with_invalid_number(input_number)
+  def stub_check_contacts_with_invalid_number(contact)
     stub_default(
       CHECK_CONTACTS_URL,
-      request_body: check_contacts_request(input_number: input_number),
-      response_body: check_contacts_response(input_number: input_number, exists: false, username: "invalid")
+      request_body: check_contacts_request(contact: contact),
+      response_body: check_contacts_response_invalid(input: contact)
     )
   end
 

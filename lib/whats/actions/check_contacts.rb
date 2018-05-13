@@ -3,11 +3,11 @@
 module Whats
   module Actions
     class CheckContacts
-      PATH = "/api/check_contacts.php"
+      PATH = "/v1/contacts"
 
-      def initialize(client, numbers)
+      def initialize(client, contacts)
         @client  = client
-        @numbers = numbers
+        @contacts = contacts
       end
 
       def call
@@ -16,14 +16,12 @@ module Whats
 
       private
 
-      attr_reader :client, :numbers
+      attr_reader :client, :contacts
 
       def payload
         {
-          payload: {
-            blocking: "wait",
-            users:    numbers
-          }
+          blocking: "wait",
+          contacts: contacts
         }
       end
     end

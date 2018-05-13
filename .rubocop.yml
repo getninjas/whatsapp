@@ -7,16 +7,10 @@ inherit_gem:
     - "config/default.yml"
 
 Metrics/LineLength:
-  Max: 120
+  Max: 80
 
 Documentation:
   Enabled: false
-
-Metrics/MethodLength:
-  Max: 30
-
-Metrics/AbcSize:
-  Max: 30
 
 Metrics/BlockLength:
   Exclude:

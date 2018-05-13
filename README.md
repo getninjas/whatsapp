@@ -34,20 +34,13 @@ whats.check_contacts(["+5511942424242"])
 
 # output:
 {
-  "meta" => {
-    "waent version" => "2.18.4"
-  },
-  "payload" => {
-    "results" => [
-      {
-        "input_number" => "+5511942424242",
-        "wa_exists" => true,
-        "wa_username" => "5511942424242"
-      }
-    ],
-    "total" => 1
-  },
-  "error" => false
+  "results" => [
+    {
+      "input" => "+5511942424242",
+      "status" => "valid",
+      "wa_id" => "5511942424242"
+    }
+  ]
 }
 ```
 

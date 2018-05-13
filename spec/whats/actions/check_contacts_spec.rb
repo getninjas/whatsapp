@@ -5,96 +5,84 @@ require "spec_helper"
 RSpec.describe Whats::Actions::CheckContacts do
   include WebmockHelper
 
-  subject(:action) { described_class.new(client, numbers) }
+  subject(:action) { described_class.new client, contacts }
 
-  let(:client) { Whats::Client.new(WebmockHelper::BASE_PATH) }
+  let(:client) { Whats::Client.new WebmockHelper::BASE_PATH }
 
-  let(:numbers) { [number] }
+  let(:contacts) { [contact] }
 
   describe "#call" do
     context "with a valid phone number" do
-      let(:number) { "+5511944442222" }
+      let(:contact) { "+5511944442222" }
 
-      let(:username) { "5511944442222" }
+      let(:wa_id) { "5511944442222" }
 
       let(:payload) do
         {
-          "results" => [
+          "contacts" => [
             {
-              "input_number" => number,
-              "wa_exists"    => true,
-              "wa_username"  => username
+              "input"  => contact,
+              "status" => "valid",
+              "wa_id"  => wa_id
             }
-          ],
-          "total" => 1
+          ]
         }
       end
 
-      before { stub_check_contacts_with_valid_number(number, username) }
+      before { stub_check_contacts_with_valid_number(contact, wa_id) }
 
       it "returns the correct payload" do
-        expect(action.call["payload"]).to eq payload
-      end
-
-      it "returns error as false" do
-        expect(action.call["error"]).to eq false
+        expect(action.call).to eq payload
       end
     end
 
     context "with more than one valid phone number" do
-      let(:numbers) { ["+5511944442222", "+55119000888"] }
+      let(:contacts) { ["+5511944442222", "+55119000888"] }
 
-      let(:usernames) { ["5511944442222", "55119000888"] }
+      let(:wa_ids) { ["5511944442222", "55119000888"] }
 
       let(:payload) do
         {
-          "results" => [
+          "contacts" => [
             {
-              "input_number" => numbers[0],
-              "wa_exists"    => true,
-              "wa_username"  => usernames[0]
+              "input"  => contacts[0],
+              "status" => "valid",
+              "wa_id"  => wa_ids[0]
             },
             {
-              "input_number" => numbers[1],
-              "wa_exists"    => true,
-              "wa_username"  => usernames[1]
+              "input"  => contacts[1],
+              "status" => "valid",
+              "wa_id"  => wa_ids[1]
             }
-          ],
-          "total" => 2
+          ]
         }
       end
 
-      before { stub_check_contacts_with_valid_numbers(numbers, usernames) }
+      before { stub_check_contacts_with_valid_numbers(contacts, wa_ids) }
 
       it "returns the correct payload" do
-        expect(action.call["payload"]).to eq payload
+        expect(action.call).to eq payload
       end
     end
 
     context "with an invalid phone number" do
-      let(:number) { "+123" }
+      let(:contact) { "+123" }
 
       let(:payload) do
         {
-          "results" => [
+          "contacts" => [
             {
-              "input_number" => number,
-              "wa_exists"    => false,
-              "wa_username"  => "invalid"
+              "input"  => contact,
+              "status" => "invalid",
             }
-          ],
-          "total" => 1
+          ]
         }
       end
 
-      before { stub_check_contacts_with_invalid_number(number) }
+      before { stub_check_contacts_with_invalid_number(contact) }
 
       it "returns the correct payload" do
-        expect(action.call["payload"]).to eq payload
-      end
-
-      it "returns error as false" do
-        expect(action.call["error"]).to eq false
+        expect(action.call).to eq payload
       end
     end
   end

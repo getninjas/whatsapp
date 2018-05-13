@@ -18,8 +18,8 @@ module Whats
       response = check_contacts([number])
 
       result = \
-        response["payload"]["results"].reduce({}) do |temp, hash|
-          temp.merge(hash["input_number"] => hash)
+        response["contacts"].reduce({}) do |temp, hash|
+          temp.merge(hash["input"] => hash)
         end
 
       result[number]
