@@ -3,7 +3,7 @@
 module Whats
   module Actions
     class SendHsmMessage
-      PATH = "/api/rest_send.php"
+      PATH = "/v1/messages"
 
       def initialize(client, username, namespace, element_name, params)
         @client       = client
