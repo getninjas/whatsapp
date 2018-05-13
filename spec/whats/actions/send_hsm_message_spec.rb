@@ -6,12 +6,12 @@ RSpec.describe Whats::Actions::SendHsmMessage do
   include WebmockHelper
 
   subject(:action) do
-    described_class.new(client, username, namespace, element_name, params)
+    described_class.new(client, wa_id, namespace, element_name, params)
   end
 
   let(:client) { Whats::Client.new(WebmockHelper::BASE_PATH) }
 
-  let(:username) { "55119000111" }
+  let(:wa_id) { "55119000111" }
 
   let(:namespace) { "whatsapp:hsm:banks:enterprisebank" }
 
@@ -21,14 +21,10 @@ RSpec.describe Whats::Actions::SendHsmMessage do
 
   describe "#call" do
     context "with valid params" do
-      before { stub_send_hsm_message(username, namespace, element_name, params: params) }
+      before { stub_send_hsm_message(wa_id, namespace, element_name, params: params) }
 
       it "returns message_in in the payload" do
-        expect(action.call["payload"]).to eq "message_id" => "ID"
-      end
-
-      it "returns error as false" do
-        expect(action.call["error"]).to eq false
+        expect(action.call).to eq "messages" => { "id" => "ID" }
       end
     end
 

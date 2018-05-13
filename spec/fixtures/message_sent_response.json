@@ -1,6 +1,5 @@
 {
-  "payload": {
-    "message_id": "%{MESSAGE_ID}"
-  },
-  "error": false
+  "messages": {
+    "id": "%{MESSAGE_ID}"
+  }
 }

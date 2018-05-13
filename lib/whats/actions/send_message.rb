@@ -5,10 +5,10 @@ module Whats
     class SendMessage
       PATH = "/v1/messages"
 
-      def initialize(client, username, body)
-        @client   = client
-        @username = username
-        @body     = body
+      def initialize(client, wa_id, body)
+        @client = client
+        @wa_id  = wa_id
+        @body   = body
       end
 
       def call
@@ -17,12 +17,14 @@ module Whats
 
       private
 
-      attr_reader :client, :username, :body
+      attr_reader :client, :wa_id, :body
 
       def payload
         {
-          payload: {
-            to:   username,
+          recipient_type: "individual",
+          to: wa_id,
+          type: "text",
+          text: {
             body: body
           }
         }

@@ -1,5 +1,4 @@
 {
-  "payload": null,
   "error": {
     "errorcode": 404,
     "errortext": "unknown contact"

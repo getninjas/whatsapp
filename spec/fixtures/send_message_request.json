@@ -1,6 +1,8 @@
 {
-  "payload": {
-    "to": "%{USERNAME}",
+  "recipient_type": "individual",
+  "to": "%{USERNAME}",
+  "type": "text",
+  "text": {
     "body": "%{BODY}"
   }
 }
