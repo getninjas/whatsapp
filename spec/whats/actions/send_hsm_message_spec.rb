@@ -28,18 +28,18 @@ RSpec.describe Whats::Actions::SendHsmMessage do
       end
     end
 
-    # context "with unknown contact" do
-    #   let(:wa_id) { "123" }
-    #
-    #   before { stub_send_hsm_message_with_unknown_contact_response(wa_id, namespace, element_name, params: params) }
-    #
-    #   it "returns payload as nil" do
-    #     expect(action.call["payload"]).to be_nil
-    #   end
-    #
-    #   it "returns error unknown contact" do
-    #     expect(action.call["error"]).to eq "errorcode" => 404, "errortext" => "unknown contact"
-    #   end
-    # end
+    xcontext "with unknown contact" do
+      let(:wa_id) { "123" }
+
+      before { stub_send_hsm_message_with_unknown_contact_response(wa_id, namespace, element_name, params: params) }
+
+      it "returns payload as nil" do
+        expect(action.call["payload"]).to be_nil
+      end
+
+      it "returns error unknown contact" do
+        expect(action.call["error"]).to eq "errorcode" => 404, "errortext" => "unknown contact"
+      end
+    end
   end
 end
