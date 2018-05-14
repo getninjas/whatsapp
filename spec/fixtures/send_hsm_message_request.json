@@ -1,10 +1,12 @@
 {
-  "payload": {
-    "to": "%{USERNAME}",
-    "hsm": {
-      "namespace": "%{NAMESPACE}",
-      "element_name": "%{ELEMENT_NAME}",
-      "localizable_params": %{PARAMS}
-    }
+  "type": "hsm",
+  "recipient_type": "individual",
+  "to": "%{USERNAME}",
+  "hsm": {
+    "namespace": "%{NAMESPACE}",
+    "element_name": "%{ELEMENT_NAME}",
+    "fallback_lg":        "pt",
+    "fallback_lc":        "BR",
+    "localizable_params": %{PARAMS}
   }
 }

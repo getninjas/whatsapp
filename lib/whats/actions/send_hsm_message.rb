@@ -3,11 +3,11 @@
 module Whats
   module Actions
     class SendHsmMessage
-      PATH = "/api/rest_send.php"
+      PATH = "/v1/messages"
 
-      def initialize(client, username, namespace, element_name, params)
+      def initialize(client, wa_id, namespace, element_name, params)
         @client       = client
-        @username     = username
+        @wa_id        = wa_id
         @namespace    = namespace
         @element_name = element_name
         @params       = params
@@ -19,17 +19,19 @@ module Whats
 
       private
 
-      attr_reader :client, :username, :namespace, :element_name, :params
+      attr_reader :client, :wa_id, :namespace, :element_name, :params
 
       def payload
         {
-          payload: {
-            to: username,
-            hsm: {
-              namespace:          namespace,
-              element_name:       element_name,
-              localizable_params: params
-            }
+          type: "hsm",
+          recipient_type: "individual",
+          to: wa_id,
+          hsm: {
+            namespace:          namespace,
+            element_name:       element_name,
+            fallback_lg:        "pt",
+            fallback_lc:        "BR",
+            localizable_params: params
           }
         }
       end

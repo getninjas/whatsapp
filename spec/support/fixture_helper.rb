@@ -59,8 +59,8 @@ module FixtureHelper
     load_json("message_sent_with_unknown_contact_response")
   end
 
-  def message_sent_with_empty_username_response
-    load_json("message_sent_with_empty_username_response")
+  def message_sent_with_empty_wa_id_response
+    load_json("message_sent_with_empty_wa_id_response")
   end
 
   def message_sent_with_empty_body_response

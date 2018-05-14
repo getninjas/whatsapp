@@ -51,11 +51,11 @@ module WebmockHelper
     )
   end
 
-  def stub_send_message_with_empty_username_response(body)
+  def stub_send_message_with_empty_wa_id_response(body)
     stub_default(
       SEND_MESSAGE_URL,
       request_body: send_message_request(username: "", body: body),
-      response_body: message_sent_with_empty_username_response
+      response_body: message_sent_with_empty_wa_id_response
     )
   end
 

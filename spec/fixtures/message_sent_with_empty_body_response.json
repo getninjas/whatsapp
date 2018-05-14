@@ -1,5 +1,4 @@
 {
-  "payload": null,
   "error": {
     "errorcode": 400,
     "errortext": "missing required message body definition"

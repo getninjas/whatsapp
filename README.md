@@ -55,13 +55,9 @@ whats.send_message("5511942424242", "Message goes here.")
 
 # output:
 {
-  "meta" => {
-    "waent version" => "2.18.4"
-  },
-  "payload" => {
-    "message_id" => "BAEC4D1D7549842627"
-  },
-  "error" => false
+  "messages" => [{
+    "id" => "BAEC4D1D7549842627"
+  }]
 }
 ```
 
@@ -70,7 +66,7 @@ whats.send_message("5511942424242", "Message goes here.")
 ### Running tests
 
 ```shell
-rspec .
+rspec
 ```
 
 ### Debugging specs
@@ -78,7 +74,7 @@ rspec .
 You can print all stubs using the environment variable `PRINT_STUBS=true` like this:
 
 ```shell
-PRINT_STUBS=true rspec .
+PRINT_STUBS=true rspec
 ```
 
 Which results in:

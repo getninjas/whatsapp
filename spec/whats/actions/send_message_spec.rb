@@ -5,34 +5,30 @@ require "spec_helper"
 RSpec.describe Whats::Actions::SendMessage do
   include WebmockHelper
 
-  subject(:action) { described_class.new(client, username, body) }
+  subject(:action) { described_class.new(client, wa_id, body) }
 
   let(:client) { Whats::Client.new(WebmockHelper::BASE_PATH) }
 
-  let(:username) { "5511944442222" }
+  let(:wa_id) { "5511944442222" }
 
   let(:body) { "Message!" }
 
   describe "#call" do
     context "with valid params" do
-      before { stub_send_message_with_valid_response(username, body) }
+      before { stub_send_message_with_valid_response(wa_id, body) }
 
       it "returns message_in in the payload" do
-        expect(action.call["payload"]).to eq "message_id" => "ID"
-      end
-
-      it "returns error as false" do
-        expect(action.call["error"]).to eq false
+        expect(action.call).to eq "messages" => { "id" => "ID" }
       end
     end
 
     context "with unknown contact" do
-      let(:username) { "123" }
+      let(:wa_id) { "123" }
 
-      before { stub_send_message_with_unknown_contact_response(username, body) }
+      before { stub_send_message_with_unknown_contact_response(wa_id, body) }
 
       it "returns payload as nil" do
-        expect(action.call["payload"]).to be_nil
+        expect(action.call["messages"]).to be_nil
       end
 
       it "returns error unknown contact" do
@@ -43,13 +39,13 @@ RSpec.describe Whats::Actions::SendMessage do
       end
     end
 
-    context "with an empty username" do
-      let(:username) { "" }
+    context "with an empty wa_id" do
+      let(:wa_id) { "" }
 
-      before { stub_send_message_with_empty_username_response(body) }
+      before { stub_send_message_with_empty_wa_id_response(body) }
 
       it "returns payload as nil" do
-        expect(action.call["payload"]).to be_nil
+        expect(action.call["messages"]).to be_nil
       end
 
       it "returns error of missing payload|to" do
@@ -63,10 +59,10 @@ RSpec.describe Whats::Actions::SendMessage do
     context "with an empty body" do
       let(:body) { "" }
 
-      before { stub_send_message_with_empty_body_response(username) }
+      before { stub_send_message_with_empty_body_response(wa_id) }
 
       it "returns payload as nil" do
-        expect(action.call["payload"]).to be_nil
+        expect(action.call["messages"]).to be_nil
       end
 
       it "returns error of missing message" do
