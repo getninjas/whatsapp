@@ -7,7 +7,7 @@ RSpec.describe Whats::Actions::SendMessage do
 
   subject(:action) { described_class.new(client, wa_id, body) }
 
-  let(:client) { Whats::Client.new }
+  let(:client) { Whats::Client.new double(token: "key") }
 
   let(:wa_id) { "5511944442222" }
 

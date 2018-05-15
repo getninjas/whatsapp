@@ -7,7 +7,7 @@ RSpec.describe Whats::Actions::CheckContacts do
 
   subject(:action) { described_class.new client, contacts }
 
-  let(:client) { Whats::Client.new }
+  let(:client) { Whats::Client.new double(token: "key") }
   let(:contacts) { [contact] }
 
   before do

@@ -9,7 +9,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
     described_class.new(client, wa_id, namespace, element_name, params)
   end
 
-  let(:client) { Whats::Client.new }
+  let(:client) { Whats::Client.new double(token: "key") }
 
   let(:wa_id) { "55119000111" }
 
