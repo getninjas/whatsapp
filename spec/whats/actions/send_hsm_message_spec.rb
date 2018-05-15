@@ -9,7 +9,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
     described_class.new(client, wa_id, namespace, element_name, params)
   end
 
-  let(:client) { Whats::Client.new(WebmockHelper::BASE_PATH) }
+  let(:client) { Whats::Client.new }
 
   let(:wa_id) { "55119000111" }
 
@@ -18,6 +18,10 @@ RSpec.describe Whats::Actions::SendHsmMessage do
   let(:element_name) { "two_factor" }
 
   let(:params) { { "default" => "1234" } }
+
+  before do
+    Whats.configure { |c| c.base_path = WebmockHelper::BASE_PATH }
+  end
 
   describe "#call" do
     context "with valid params" do

@@ -7,9 +7,12 @@ RSpec.describe Whats::Actions::CheckContacts do
 
   subject(:action) { described_class.new client, contacts }
 
-  let(:client) { Whats::Client.new WebmockHelper::BASE_PATH }
-
+  let(:client) { Whats::Client.new }
   let(:contacts) { [contact] }
+
+  before do
+    Whats.configure { |c| c.base_path = WebmockHelper::BASE_PATH }
+  end
 
   describe "#call" do
     context "with a valid phone number" do
