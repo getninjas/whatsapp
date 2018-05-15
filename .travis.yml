@@ -15,5 +15,5 @@ env:
 
 script:
   - bundle exec rspec spec
-  - bundle exec rubocop --require rubocop-rspec
+  # - bundle exec rubocop --require rubocop-rspec
   - bundle exec codeclimate-test-reporter
