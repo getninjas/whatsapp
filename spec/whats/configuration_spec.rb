@@ -5,7 +5,10 @@ require "spec_helper"
 RSpec.describe Whats, ".configuration" do
   subject(:configuration) { Whats.configuration }
 
-  context "when no configure is done" do
+  context "when no configuration is done" do
+    before "clean whats module" do
+      Whats.configuration = nil
+    end
     it { is_expected.to be_nil }
   end
 
