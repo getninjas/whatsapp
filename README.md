@@ -19,10 +19,18 @@ gem "whatsapp"
 
 ### Instantiation
 
-Create an instance of the API client passing the base path of your endpoint:
+Configure the gem with a base path for the WhatsApp endpoint
 
 ```ruby
-whats = Whats::Api.new("https://my-whatsapp-endpoint.com")
+Whats.config do |config|
+  config.base_path = "https://example.test"
+end
+```
+
+Create an instance of the API client:
+
+```ruby
+whats = Whats::Api.new
 ```
 
 ### Check Contacts

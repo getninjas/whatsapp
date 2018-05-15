@@ -7,11 +7,15 @@ RSpec.describe Whats::Actions::SendMessage do
 
   subject(:action) { described_class.new(client, wa_id, body) }
 
-  let(:client) { Whats::Client.new(WebmockHelper::BASE_PATH) }
+  let(:client) { Whats::Client.new }
 
   let(:wa_id) { "5511944442222" }
 
   let(:body) { "Message!" }
+
+  before do
+    Whats.configure { |c| c.base_path = WebmockHelper::BASE_PATH }
+  end
 
   describe "#call" do
     context "with valid params" do

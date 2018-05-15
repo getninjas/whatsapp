@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Whats::Client do
-  subject(:client) { described_class.new(base_path) }
+  subject(:client) { described_class.new }
 
   let(:base_path) { WebmockHelper::BASE_PATH }
 
@@ -20,6 +20,7 @@ RSpec.describe Whats::Client do
 
     context "with valid params" do
       before do
+        Whats.configure { |c| c.base_path = base_path }
         stub_request(:post, full_path)
           .with(
             body: payload_json,
@@ -48,6 +49,7 @@ RSpec.describe Whats::Client do
 
     context "with a server error" do
       before do
+        Whats.configure { |c| c.base_path = base_path }
         stub_request(:post, full_path)
           .with(
             body: payload_json,

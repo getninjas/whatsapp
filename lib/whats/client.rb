@@ -2,8 +2,8 @@
 
 module Whats
   class Client
-    def initialize(base_path)
-      @base_path = base_path
+    def initialize
+      @base_path = Whats.configuration.base_path
     end
 
     def request(path, payload)
