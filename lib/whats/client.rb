@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require "whats/actions/login"
+
 module Whats
   class Client
-    def initialize
+    def initialize(login = Whats::Actions::Login.new)
       @base_path = Whats.configuration.base_path
+      @login = login
     end
 
     def request(path, payload)
@@ -11,7 +14,10 @@ module Whats
 
       response = Typhoeus.post(
         full_path,
-        headers: { "Content-Type" => "application/json" },
+        headers: {
+          "Authorization" => "Bearer #{login.token}",
+          "Content-Type" => "application/json"
+        },
         body: payload.to_json
       )
 
@@ -22,6 +28,6 @@ module Whats
 
     private
 
-    attr_reader :base_path
+    attr_reader :base_path, :login
   end
 end

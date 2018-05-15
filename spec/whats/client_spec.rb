@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Whats::Client do
-  subject(:client) { described_class.new }
+  subject(:client) { described_class.new double(token: "key") }
 
   let(:base_path) { WebmockHelper::BASE_PATH }
 

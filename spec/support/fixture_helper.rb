@@ -66,4 +66,8 @@ module FixtureHelper
   def message_sent_with_empty_body_response
     load_json("message_sent_with_empty_body_response")
   end
+
+  def login_response(token)
+    load_json "login_response", token: token
+  end
 end

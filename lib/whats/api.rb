@@ -6,8 +6,8 @@ require "whats/actions/send_hsm_message"
 
 module Whats
   class Api
-    def initialize(base_path)
-      @base_path = base_path
+    def initialize
+      @base_path = Whats.configuration.base_path
     end
 
     def check_contacts(numbers)

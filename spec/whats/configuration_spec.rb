@@ -23,4 +23,28 @@ RSpec.describe Whats, ".configuration" do
       expect(Whats.configuration.base_path).to be base_path
     end
   end
+
+  context "when user is configured" do
+    let(:user) { "user" }
+
+    before do
+      Whats.configure { |config| config.user = user }
+    end
+
+    it "is expeted that the user is configure" do
+      expect(Whats.configuration.user).to be user
+    end
+  end
+
+  context "when password is configured" do
+    let(:password) { "password" }
+
+    before do
+      Whats.configure { |config| config.password = password }
+    end
+
+    it "is expeted that the password is configure" do
+      expect(Whats.configuration.password).to be password
+    end
+  end
 end
