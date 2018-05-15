@@ -44,7 +44,7 @@ module Whats
     attr_reader :base_path
 
     def client
-      @client ||= Whats::Client.new(base_path)
+      @client ||= Whats::Client.new
     end
   end
 end
