@@ -3,14 +3,14 @@
 require "spec_helper"
 
 RSpec.describe Whats::Api do
-  subject(:api) { described_class.new(base_path) }
+  subject(:api) { described_class.new }
 
   let(:base_path) { WebmockHelper::BASE_PATH }
 
   let(:client) { instance_double Whats::Client }
 
   before do
-    allow(Whats::Client).to receive(:new).with(base_path).and_return client
+    allow(Whats::Client).to receive(:new).and_return client
   end
 
   describe "#check_contacts" do
