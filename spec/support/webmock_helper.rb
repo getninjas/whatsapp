@@ -8,6 +8,7 @@ module WebmockHelper
   BASE_PATH          = "http://test.local"
   CHECK_CONTACTS_URL = "#{BASE_PATH}#{Whats::Actions::CheckContacts::PATH}"
   SEND_MESSAGE_URL   = "#{BASE_PATH}#{Whats::Actions::SendHsmMessage::PATH}"
+  LOGIN_URL          = "#{BASE_PATH}#{Whats::Actions::Login::PATH}"
 
   def stub_check_contacts_with_valid_number(contact, wa_id)
     stub_default(
@@ -93,11 +94,20 @@ module WebmockHelper
     )
   end
 
-  def stub_default(url, method: :post, request_body:, response_body:, status: 200)
+  def stub_login(token, credential)
+    stub_default(
+      LOGIN_URL,
+      request_body: "",
+      response_body: login_response(token),
+      headers: { "Authorization" => "Bearer dXNlcm5hbWU6c2VjcmV0X3Bhc3N3b3Jk" }
+    )
+  end
+
+  def stub_default(url, method: :post, request_body:, response_body:, status: 200, headers: { "Content-Type" => "application/json" })
     stub = stub_request(method, url)
       .with(
         body: request_body,
-        headers: { "Content-Type" => "application/json" }
+        headers: headers
       )
       .to_return(
         body: response_body,
