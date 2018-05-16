@@ -99,7 +99,7 @@ module WebmockHelper
       LOGIN_URL,
       request_body: "",
       response_body: login_response(token),
-      headers: { "Authorization" => "Bearer dXNlcm5hbWU6c2VjcmV0X3Bhc3N3b3Jk" }
+      headers: { "Authorization" => "Basic dXNlcm5hbWU6c2VjcmV0X3Bhc3N3b3Jk" }
     )
   end
 
