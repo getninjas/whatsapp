@@ -22,7 +22,7 @@ module Whats
           headers: { "Authorization" => "Basic #{encoded_auth}" },
           body: {}
         )
-
+        log "-------------------------\n\n\n PATH -> #{full_path} \n\n\n response -> #{response} \n\n\n------------------------------\n"
         update_atributes response
 
         @token
@@ -31,6 +31,7 @@ module Whats
       private
 
       def update_atributes(response)
+        log "-------------------------\n\n\n #{response} \n\n------------------------------\n"
         if response.failure?
           raise Whats::Errors::RequestError.new("API request error.", response)
         end
