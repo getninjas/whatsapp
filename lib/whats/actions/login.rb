@@ -19,7 +19,7 @@ module Whats
 
         response = Typhoeus.post(
           full_path,
-          headers: { "Authorization" => "Bearer #{encoded_auth}" },
+          headers: { "Authorization" => "Basic #{encoded_auth}" },
           body: {}
         )
 
