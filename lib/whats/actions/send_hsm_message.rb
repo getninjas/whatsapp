@@ -24,15 +24,17 @@ module Whats
       def payload
         {
           hsm: {
-            element_name:       element_name,
-            fallback_lc:        "BR",
-            fallback_lg:        "pt",
+            element_name: element_name,
+            language: {
+              code: :pt_BR,
+              policy: :deterministic
+              },
             localizable_params: params,
-            namespace:          namespace
+            namespace: namespace
           },
-          recipient_type: "individual",
+          recipient_type: :individual,
           to: wa_id,
-          type: "hsm"
+          type: :hsm
         }
       end
     end
