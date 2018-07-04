@@ -23,16 +23,16 @@ module Whats
 
       def payload
         {
-          type: "hsm",
+          hsm: {
+            element_name:       element_name,
+            fallback_lc:        "BR",
+            fallback_lg:        "pt",
+            localizable_params: params,
+            namespace:          namespace
+          },
           recipient_type: "individual",
           to: wa_id,
-          hsm: {
-            namespace:          namespace,
-            element_name:       element_name,
-            fallback_lg:        "pt",
-            fallback_lc:        "BR",
-            localizable_params: params
-          }
+          type: "hsm"
         }
       end
     end
