@@ -1,6 +1,9 @@
 {
-  "error": {
-    "errorcode": 404,
-    "errortext": "unknown contact"
-  }
+  "errors": [
+    {
+      "code": 1006,
+      "title": "Resource not found",
+      "details": "unknown contact"
+    }
+  ]
 }

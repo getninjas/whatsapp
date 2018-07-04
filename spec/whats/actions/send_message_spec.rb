@@ -36,10 +36,11 @@ RSpec.describe Whats::Actions::SendMessage do
       end
 
       it "returns error unknown contact" do
-        expect(action.call["error"]).to eq(
-          "errorcode" => 404,
-          "errortext" => "unknown contact"
-        )
+        expect(action.call["errors"]).to eq [{
+          "code" => 1006,
+          "title" => "Resource not found",
+          "details" => "unknown contact"
+        }]
       end
     end
 

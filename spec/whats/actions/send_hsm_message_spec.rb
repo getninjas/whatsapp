@@ -32,7 +32,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
       end
     end
 
-    xcontext "with unknown contact" do
+    context "with unknown contact" do
       let(:wa_id) { "123" }
 
       before { stub_send_hsm_message_with_unknown_contact_response(wa_id, namespace, element_name, params: params) }
@@ -42,7 +42,11 @@ RSpec.describe Whats::Actions::SendHsmMessage do
       end
 
       it "returns error unknown contact" do
-        expect(action.call["error"]).to eq "errorcode" => 404, "errortext" => "unknown contact"
+        expect(action.call["errors"]).to eq [{
+          "code" => 1006,
+          "details" => "unknown contact",
+          "title" => "Resource not found"
+          }]
       end
     end
   end
