@@ -2,8 +2,8 @@
   "errors": [
     {
       "code": 1006,
-      "title": "Resource not found",
-      "details": "unknown contact"
+      "details": "unknown contact",
+      "title": "Resource not found"
     }
   ]
 }
