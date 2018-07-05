@@ -17,6 +17,10 @@ module Whats
     def check_contact(number)
       response = check_contacts([number])
 
+      if response["errors"]
+        raise Whats::Errors::RequestError.new("WhatsApp error.", response)
+      end
+
       result = \
         response["contacts"].reduce({}) do |temp, hash|
           temp.merge(hash["input"] => hash)

@@ -32,23 +32,7 @@ RSpec.describe Whats::Api do
   end
 
   describe "#check_contact" do
-    let(:action) do
-     instance_double Whats::Actions::CheckContacts, call: response
-    end
-
     let(:number) { "+5511942424242" }
-
-    let(:response) do
-      {
-        "contacts" => [
-          {
-            "input" => "+5511942424242",
-            "status" => "valid",
-            "wa_id" => "5511942424242"
-          }
-        ]
-      }
-    end
 
     before do
       allow(Whats::Actions::CheckContacts)
@@ -57,14 +41,52 @@ RSpec.describe Whats::Api do
         .and_return action
     end
 
-    it "formats the response for a single number" do
-      result = api.check_contact(number)
+    context "when whatsapp fails" do
+      let(:action) do
+       instance_double Whats::Actions::CheckContacts, call: failed_response
+      end
 
-      expect(result).to eq(
-        "input" => "+5511942424242",
-        "status" => "valid",
-        "wa_id" => "5511942424242"
-      )
+      let(:failed_response) do
+        {
+          "errors" => [{
+            "code" => 100,
+            "title" => "Generic error",
+            "details" => "Genereic error description"
+          }]
+        }
+      end
+
+      it "raises a request error" do
+        expect { api.check_contact(number) }.to raise_error Whats::Errors::RequestError
+      end
+    end
+
+    context "when whatsapp succeed" do
+      let(:action) do
+        instance_double Whats::Actions::CheckContacts, call: response
+      end
+
+      let(:response) do
+        {
+          "contacts" => [
+            {
+              "input" => "+5511942424242",
+              "status" => "valid",
+              "wa_id" => "5511942424242"
+            }
+          ]
+        }
+      end
+
+      it "formats the response for a single number" do
+        result = api.check_contact(number)
+
+        expect(result).to eq(
+          "input" => "+5511942424242",
+          "status" => "valid",
+          "wa_id" => "5511942424242"
+        )
+      end
     end
   end
 
