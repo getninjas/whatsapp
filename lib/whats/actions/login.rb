@@ -22,7 +22,6 @@ module Whats
           headers: { "Authorization" => "Basic #{encoded_auth}" },
           body: {}
         )
-        puts "-------------------------\n\n\n PATH -> #{full_path} \n\n\n AUTH -> #{encoded_auth} \n\n\n response -> #{response.inspect} \n\n\n------------------------------\n"
         update_atributes response
 
         @token
