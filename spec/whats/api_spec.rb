@@ -43,7 +43,7 @@ RSpec.describe Whats::Api do
 
     context "when whatsapp fails" do
       let(:action) do
-       instance_double Whats::Actions::CheckContacts, call: failed_response
+        instance_double Whats::Actions::CheckContacts, call: failed_response
       end
 
       let(:failed_response) do
