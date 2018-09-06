@@ -94,21 +94,68 @@ PRINT_STUBS=true rspec
 Which results in:
 
 ```
-Whats::Actions::SendMessage
-  #call
-    with valid params
 + ------ STUB ------
-+ Request:  POST http://test.local/api/rest_send.php with body "{\"payload\":{\"to\":\"5511944442222\",\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
-+ Response: {"payload":{"message_id":"ID"},"error":false}
++ Request:  POST http://test.local/v1/contacts with body "{\"blocking\":\"wait\",\"contacts\":[\"+5511944442222\"]}" with headers {'Content-Type'=>'application/json'}
++ Response: {"contacts":[{"input":"+5511944442222","status":"valid","wa_id":"5511944442222"}]}
 + ------------------
-      returns message_in in the payload
-    with unknown contact
-+ ------ STUB ------
-+ Request:  POST http://test.local/api/rest_send.php with body "{\"payload\":{\"to\":\"123\",\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
-+ Response: {"payload":null,"error":{"errorcode":404,"errortext":"unknown contact"}}
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/contacts with body "{\"blocking\":\"wait\",\"contacts\":[\"+5511944442222\",\"+55119000888\"]}" with headers {'Content-Type'=>'application/json'}
++ Response: {"contacts":[{"input":"+5511944442222","status":"valid","wa_id":"5511944442222"},{"input":"+55119000888","status":"valid","wa_id":"55119000888"}]}
 + ------------------
-      returns error unknown contact
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/contacts with body "{\"blocking\":\"wait\",\"contacts\":[\"+123\"]}" with headers {'Content-Type'=>'application/json'}
++ Response: {"contacts":[{"input":"+123","status":"invalid"}]}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/users/login with body "" with headers {'Authorization'=>'Basic dXNlcm5hbWU6c2VjcmV0X3Bhc3N3b3Jk'}
++ Response: {"users":[{"token":"toooo.kkkkk.eeeen","expires_after":"2099-03-01 15:29:26+00:00"}]}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"hsm\":{\"element_name\":\"two_factor\",\"language\":{\"code\":\"pt_BR\",\"policy\":\"deterministic\"},\"localizable_params\":{\"default\":\"1234\"},\"namespace\":\"whatsapp:hsm:banks:enterprisebank\"},\"recipient_type\":\"individual\",\"to\":\"55119000111\",\"type\":\"hsm\"}" with headers {'Content-Type'=>'application/json'}
++ Response: {"messages":{"id":"ID"}}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"hsm\":{\"element_name\":\"two_factor\",\"language\":{\"code\":\"pt_BR\",\"policy\":\"deterministic\"},\"localizable_params\":{\"default\":\"1234\"},\"namespace\":\"whatsapp:hsm:banks:enterprisebank\"},\"recipient_type\":\"individual\",\"to\":\"123\",\"type\":\"hsm\"}" with headers {'Content-Type'=>'application/json'}
++ Response: {"errors":[{"code":1006,"details":"unknown contact","title":"Resource not found"}]}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"hsm\":{\"element_name\":\"two_factor\",\"language\":{\"code\":\"pt_BR\",\"policy\":\"deterministic\"},\"localizable_params\":{\"default\":\"1234\"},\"namespace\":\"whatsapp:hsm:banks:enterprisebank\"},\"recipient_type\":\"individual\",\"to\":\"123\",\"type\":\"hsm\"}" with headers {'Content-Type'=>'application/json'}
++ Response: {"errors":[{"code":1006,"details":"unknown contact","title":"Resource not found"}]}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"recipient_type\":\"individual\",\"to\":\"5511944442222\",\"type\":\"text\",\"text\":{\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"messages":{"id":"ID"}}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"recipient_type\":\"individual\",\"to\":\"123\",\"type\":\"text\",\"text\":{\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"errors":[{"code":1006,"details":"unknown contact","title":"Resource not found"}]}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"recipient_type\":\"individual\",\"to\":\"123\",\"type\":\"text\",\"text\":{\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"errors":[{"code":1006,"details":"unknown contact","title":"Resource not found"}]}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"recipient_type\":\"individual\",\"to\":\"\",\"type\":\"text\",\"text\":{\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"error":{"errorcode":400,"errortext":"missing params payload|to"}}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"recipient_type\":\"individual\",\"to\":\"\",\"type\":\"text\",\"text\":{\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"error":{"errorcode":400,"errortext":"missing params payload|to"}}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"recipient_type\":\"individual\",\"to\":\"5511944442222\",\"type\":\"text\",\"text\":{\"body\":\"\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"error":{"errorcode":400,"errortext":"missing required message body definition"}}
++ ------------------
+.+ ------ STUB ------
++ Request:  POST http://test.local/v1/messages with body "{\"recipient_type\":\"individual\",\"to\":\"5511944442222\",\"type\":\"text\",\"text\":{\"body\":\"\"}}" with headers {'Content-Type'=>'application/json'}
++ Response: {"error":{"errorcode":400,"errortext":"missing required message body definition"}}
++ ------------------
+...............
 
-Finished in 0.0077 seconds (files took 0.59843 seconds to load)
-2 examples, 0 failures
+Finished in 0.11157 seconds (files took 0.86592 seconds to load)
+28 examples, 0 failures
+
+
+COVERAGE: 100.00% -- 185/185 lines in 7 files
+
 ```
