@@ -17,6 +17,12 @@ gem "whatsapp"
 
 ## Usage
 
+### Setting up a WhatsApp Business API Client
+
+For the gem to be useful you need a WhatsApp Business account from Facebook. You can get it here: https://developers.facebook.com/docs/whatsapp/getting-started
+
+That link also has the documentation for the Whatsapp api, which this gem aims to encapsulate
+
 ### Instantiation
 
 Configure the gem with a base path for the WhatsApp endpoint
@@ -35,7 +41,7 @@ whats = Whats::Api.new
 
 ### Check Contacts
 
-Take a look [here](https://developers.facebook.com/docs/whatsapp/check-contacts) (WhatsApp Check Contacts doc) for more information.
+Take a look [here](https://developers.facebook.com/docs/whatsapp/api/contacts) (WhatsApp Check Contacts doc) for more information.
 
 ```ruby
 whats.check_contacts(["+5511942424242"])
@@ -54,7 +60,7 @@ whats.check_contacts(["+5511942424242"])
 
 ### Send Message
 
-Take a look [here](https://developers.facebook.com/docs/whatsapp/send-api) (WhatsApp Send Message doc) for more information.
+Take a look [here](https://developers.facebook.com/docs/whatsapp/api/messages/text) (WhatsApp Send Message doc) for more information.
 
 *The first parameter is the WhatsApp **username**!*
 
@@ -85,24 +91,4 @@ You can print all stubs using the environment variable `PRINT_STUBS=true` like t
 PRINT_STUBS=true rspec
 ```
 
-Which results in:
-
-```
-Whats::Actions::SendMessage
-  #call
-    with valid params
-+ ------ STUB ------
-+ Request:  POST http://test.local/api/rest_send.php with body "{\"payload\":{\"to\":\"5511944442222\",\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
-+ Response: {"payload":{"message_id":"ID"},"error":false}
-+ ------------------
-      returns message_in in the payload
-    with unknown contact
-+ ------ STUB ------
-+ Request:  POST http://test.local/api/rest_send.php with body "{\"payload\":{\"to\":\"123\",\"body\":\"Message!\"}}" with headers {'Content-Type'=>'application/json'}
-+ Response: {"payload":null,"error":{"errorcode":404,"errortext":"unknown contact"}}
-+ ------------------
-      returns error unknown contact
-
-Finished in 0.0077 seconds (files took 0.59843 seconds to load)
-2 examples, 0 failures
-```
+All stubs can be seen in the debugging session from the wiki: https://github.com/getninjas/whatsapp/wiki/Debugging
