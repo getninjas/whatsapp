@@ -19,9 +19,9 @@ gem "whatsapp"
 
 ### Setting up a WhatsApp Business API Client
 
-For the gem to be useful you need a WhatsApp Business account from facebook. You can get it here: https://developers.facebook.com/docs/whatsapp/getting-started
+For the gem to be useful you need a WhatsApp Business account from Facebook. You can get it here: https://developers.facebook.com/docs/whatsapp/getting-started
 
-That link also has the documentation for the whatsapp api, which this gem aims to encapsulate
+That link also has the documentation for the Whatsapp api, which this gem aims to encapsulate
 
 ### Instantiation
 
@@ -91,4 +91,4 @@ You can print all stubs using the environment variable `PRINT_STUBS=true` like t
 PRINT_STUBS=true rspec
 ```
 
-All stubs can be seeing in the debugging session of the wiki: https://github.com/getninjas/whatsapp/wiki/Debugging
+All stubs can be seen in the debugging session from the wiki: https://github.com/getninjas/whatsapp/wiki/Debugging
