@@ -41,7 +41,7 @@ whats = Whats::Api.new
 
 ### Check Contacts
 
-Take a look [here](https://developers.facebook.com/docs/whatsapp/check-contacts) (WhatsApp Check Contacts doc) for more information.
+Take a look [here](https://developers.facebook.com/docs/whatsapp/api/contacts) (WhatsApp Check Contacts doc) for more information.
 
 ```ruby
 whats.check_contacts(["+5511942424242"])
@@ -60,7 +60,7 @@ whats.check_contacts(["+5511942424242"])
 
 ### Send Message
 
-Take a look [here](https://developers.facebook.com/docs/whatsapp/send-api) (WhatsApp Send Message doc) for more information.
+Take a look [here](https://developers.facebook.com/docs/whatsapp/api/messages/text) (WhatsApp Send Message doc) for more information.
 
 *The first parameter is the WhatsApp **username**!*
 
