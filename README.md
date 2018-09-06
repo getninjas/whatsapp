@@ -17,6 +17,12 @@ gem "whatsapp"
 
 ## Usage
 
+### Setting up a WhatsApp Business API Client
+
+For the gem to be useful you need a WhatsApp Business account from facebook. You can get it here: https://developers.facebook.com/docs/whatsapp/getting-started
+
+That link also has the documentation for the whatsapp api, which this gem aims to encapsulate
+
 ### Instantiation
 
 Configure the gem with a base path for the WhatsApp endpoint
