@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whatsapp (0.1.4)
+    whatsapp (0.1.5)
       typhoeus (~> 1.3)
 
 GEM
@@ -21,7 +21,7 @@ GEM
     docile (1.3.0)
     ethon (0.11.0)
       ffi (>= 1.3.0)
-    ffi (1.9.23)
+    ffi (1.9.25)
     hashdiff (0.3.7)
     hirb (0.7.3)
     json (2.1.0)
@@ -100,4 +100,4 @@ DEPENDENCIES
   whatsapp!
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
