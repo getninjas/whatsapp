@@ -15,25 +15,37 @@ Add this line to your application's Gemfile:
 gem "whatsapp"
 ```
 
+Or manualy install
+```bash
+gem install whatsapp
+```
+then require it when there's a need to use it
+```ruby
+require "whatsapp"
+```
+
 ## Usage
 
 ### Setting up a WhatsApp Business API Client
 
 For the gem to be useful you need a WhatsApp Business account from Facebook. You can get it here: https://developers.facebook.com/docs/whatsapp/getting-started
 
-That link also has the documentation for the Whatsapp api, which this gem aims to encapsulate
+That link also has the documentation for the Whatsapp api, which this gem aims to encapsulate.
+After that you should have to containers running, the `whatsapp-core` and `whatsapp-web`
 
-### Instantiation
+### Configuration
 
-Configure the gem with a base path for the WhatsApp endpoint
+Before you can send messages there's some Configuration to be done. Set the base path, username and password for the `whatsapp-web` container
 
 ```ruby
-Whats.config do |config|
+Whats.configure do |config|
   config.base_path = "https://example.test"
+  config.user = "admin"
+  config.password = "secret password"
 end
 ```
 
-Create an instance of the API client:
+Create an instance of the API client, which is going to be used from now on to interact with whatsapp
 
 ```ruby
 whats = Whats::Api.new
