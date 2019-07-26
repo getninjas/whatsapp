@@ -1,25 +1,37 @@
-# typed: true
+# typed: strict
 # frozen_string_literal: true
 
 module Whats
   module Actions
     class SendMessage
+      extend T::Sig
+
       PATH = "/v1/messages"
 
+      sig { params(client: Whats::Client, wa_id: String, body: String).void }
       def initialize(client, wa_id, body)
-        @client = client
-        @wa_id  = wa_id
-        @body   = body
+        @client = T.let(client, Whats::Client)
+        @wa_id  = T.let(wa_id, String)
+        @body   = T.let(body, String)
       end
 
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def call
         client.request PATH, payload
       end
 
       private
 
-      attr_reader :client, :wa_id, :body
+      sig { returns(Whats::Client) }
+      attr_reader :client
 
+      sig { returns(String) }
+      attr_reader :wa_id
+
+      sig { returns(String) }
+      attr_reader :body
+
+      sig { returns(T::Hash[T.untyped, T.untyped]) }
       def payload
         {
           recipient_type: "individual",
