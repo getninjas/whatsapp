@@ -26,10 +26,7 @@ module Whats
       attr_reader :client
 
       sig { returns(String) }
-      attr_reader :wa_id
-
-      sig { returns(String) }
-      attr_reader :body
+      attr_reader :wa_id, :body
 
       sig { returns(T::Hash[T.untyped, T.untyped]) }
       def payload
