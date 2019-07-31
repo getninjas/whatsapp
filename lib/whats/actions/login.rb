@@ -21,7 +21,7 @@ module Whats
 
       sig { returns(String) }
       def token
-        return T.cast(@token, String) if valid?
+        return T.must(@token) if valid?
 
         full_path = "#{Whats.configuration.base_path}#{PATH}"
 
@@ -32,7 +32,7 @@ module Whats
         )
         update_atributes response
 
-        T.cast(@token, String)
+        T.must(@token)
       end
 
       private

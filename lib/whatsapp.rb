@@ -4,6 +4,7 @@
 # Dependencies
 require "json"
 require "typhoeus"
+require "sorbet-runtime"
 
 # Source
 require "whats/configuration"
