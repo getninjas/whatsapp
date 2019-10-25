@@ -100,6 +100,14 @@ whats.send_hsm_message(
     {default: "300"},
   ]
 )
+
+# output:
+
+{
+  "messages": [{
+    "id": "gBEGkYiEB1VXAglK1ZEqA1YKPrU"
+  }]
+}
 ```
 
 ## Tests
