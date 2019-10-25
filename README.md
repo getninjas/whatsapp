@@ -87,6 +87,21 @@ whats.send_message("5511942424242", "Message goes here.")
 }
 ```
 
+### Send HSM (templated) messages
+Send a kind of message that will not allow the receiver to flag it as spam since it's template was pre approved by WhatsApp, find more informations [here](https://developers.facebook.com/docs/whatsapp/message-templates)
+
+```ruby
+whats.send_hsm_message(
+  "+1234567890",
+  "cdb2df51_9816_c754_c5a4_64cdabdcad3e",
+  "purchase_with_credit_card",
+  [ # ordered list of replacements that will happen at the template
+    {default: "$10"},
+    {default: "300"},
+  ]
+)
+```
+
 ## Tests
 
 ### Running tests
