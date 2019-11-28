@@ -19,7 +19,7 @@ module Whats
           "Authorization" => "#{token_name} #{token}",
           "Content-Type" => "application/json"
         },
-        body: payload&.to_json
+        body: payload && payload.to_json
       )
 
       raise Whats::Errors::RequestError.new("API request error.", response) if response.failure?
@@ -34,9 +34,9 @@ module Whats
     def token_name
       case token_type
       when :basic
-        'Basic'
+        "Basic"
       when :bearer
-        'Bearer'
+        "Bearer"
       end
     end
 
