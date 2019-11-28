@@ -10,32 +10,26 @@ module Whats
       def initialize
         @user = Whats.configuration.user
         @password = Whats.configuration.password
+        @client = Whats::Client.new(encoded_auth, :basic)
+      end
+
+      def call
+        client.request(PATH)
       end
 
       def token
         return @token if valid?
 
-        full_path = "#{Whats.configuration.base_path}#{PATH}"
-
-        response = Typhoeus.post(
-          full_path,
-          headers: { "Authorization" => "Basic #{encoded_auth}" },
-          body: {}
-        )
-        update_atributes response
+        extract_atributes call
 
         @token
       end
 
       private
 
-      def update_atributes(response)
-        if response.failure?
-          raise Whats::Errors::RequestError.new("API request error.", response)
-        end
+      attr_reader :client
 
-        response = JSON.parse response.body
-
+      def extract_atributes(response)
         @token = response["users"].first["token"]
         @expires_after = response["users"].first["expires_after"]
       end
