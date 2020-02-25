@@ -118,17 +118,19 @@ RSpec.describe Whats::Api do
 
     let(:element_name) { "element_name" }
 
+    let(:language) { "en" }
+
     let(:params) { { key: "value" } }
 
     before do
       allow(Whats::Actions::SendHsmMessage)
         .to receive(:new)
-        .with(client, username, namespace, element_name, params)
+        .with(client, username, namespace, element_name, language, params)
         .and_return action
     end
 
     it "calls the specific action" do
-      expect(api.send_hsm_message(username, namespace, element_name, params)).to eq "action result"
+      expect(api.send_hsm_message(username, namespace, element_name, language, params)).to eq "action result"
     end
   end
 end
