@@ -33,12 +33,13 @@ module Whats
       Actions::SendMessage.new(client, username, body).call
     end
 
-    def send_hsm_message(username, namespace, element_name, params)
+    def send_hsm_message(username, namespace, element_name, language, params)
       Actions::SendHsmMessage.new(
         client,
         username,
         namespace,
         element_name,
+        language,
         params
       ).call
     end

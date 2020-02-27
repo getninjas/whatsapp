@@ -95,6 +95,7 @@ whats.send_hsm_message(
   "+1234567890",
   "cdb2df51_9816_c754_c5a4_64cdabdcad3e",
   "purchase_with_credit_card",
+  "en",
   [ # ordered list of replacements that will happen at the template
     {default: "$10"},
     {default: "300"},

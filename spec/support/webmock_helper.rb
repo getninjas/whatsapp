@@ -68,26 +68,28 @@ module WebmockHelper
     )
   end
 
-  def stub_send_hsm_message(username, namespace, element_name, params: {})
+  def stub_send_hsm_message(username, namespace, element_name, language, params: {})
     stub_default(
       SEND_MESSAGE_URL,
       request_body: send_hsm_message_request(
         username:     username,
         namespace:    namespace,
         element_name: element_name,
+        language:     language,
         params:       params
       ),
       response_body: message_sent_response
     )
   end
 
-  def stub_send_hsm_message_with_unknown_contact_response(username, namespace, element_name, params: {})
+  def stub_send_hsm_message_with_unknown_contact_response(username, namespace, element_name, language, params: {})
     stub_default(
       SEND_MESSAGE_URL,
       request_body: send_hsm_message_request(
         username:     username,
         namespace:    namespace,
         element_name: element_name,
+        language:     language,
         params:       params
       ),
       response_body: message_sent_with_unknown_contact_response

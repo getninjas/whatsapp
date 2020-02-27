@@ -5,11 +5,12 @@ module Whats
     class SendHsmMessage
       PATH = "/v1/messages"
 
-      def initialize(client, wa_id, namespace, element_name, params)
+      def initialize(client, wa_id, namespace, element_name, language, params)
         @client       = client
         @wa_id        = wa_id
         @namespace    = namespace
         @element_name = element_name
+        @language     = language
         @params       = params
       end
 
@@ -19,14 +20,14 @@ module Whats
 
       private
 
-      attr_reader :client, :wa_id, :namespace, :element_name, :params
+      attr_reader :client, :wa_id, :namespace, :element_name, :language, :params
 
       def payload
         {
           hsm: {
             element_name: element_name,
-            language: {
-              code: :pt_BR,
+            language: language.is_a?(Hash) ? language : {
+              code: language,
               policy: :deterministic
               },
             localizable_params: params,
