@@ -26,16 +26,20 @@ module Whats
         {
           hsm: {
             element_name: element_name,
-            language: language.is_a?(Hash) ? language : {
-              code: language,
-              policy: :deterministic
-              },
+            language: language.is_a?(Hash) ? language : language_options(language),
             localizable_params: params,
             namespace: namespace
           },
           recipient_type: :individual,
           to: wa_id,
           type: :hsm
+        }
+      end
+
+      def language_options(language)
+        {
+          code: language,
+          policy: :deterministic
         }
       end
     end
