@@ -6,7 +6,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
   include WebmockHelper
 
   subject(:action) do
-    described_class.new(client, wa_id, namespace, element_name, params)
+    described_class.new(client, wa_id, namespace, element_name, language, params)
   end
 
   let(:client) { Whats::Client.new double(token: "key") }
@@ -17,6 +17,8 @@ RSpec.describe Whats::Actions::SendHsmMessage do
 
   let(:element_name) { "two_factor" }
 
+  let(:language) { "en" }
+
   let(:params) { { "default" => "1234" } }
 
   before do
@@ -25,7 +27,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
 
   describe "#call" do
     context "with valid params" do
-      before { stub_send_hsm_message(wa_id, namespace, element_name, params: params) }
+      before { stub_send_hsm_message(wa_id, namespace, element_name, language, params: params) }
 
       it "returns message_in in the payload" do
         expect(action.call).to eq "messages" => { "id" => "ID" }
@@ -35,7 +37,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
     context "with unknown contact" do
       let(:wa_id) { "123" }
 
-      before { stub_send_hsm_message_with_unknown_contact_response(wa_id, namespace, element_name, params: params) }
+      before { stub_send_hsm_message_with_unknown_contact_response(wa_id, namespace, element_name, language, params: params) }
 
       it "returns payload as nil" do
         expect(action.call["payload"]).to be_nil

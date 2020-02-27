@@ -2,7 +2,7 @@
   "hsm": {
     "element_name": "%{ELEMENT_NAME}",
     "language": {
-      "code": "pt_BR",
+      "code": "%{LANGUAGE}",
       "policy": "deterministic"
     },
     "localizable_params": %{PARAMS},
