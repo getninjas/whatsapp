@@ -13,18 +13,12 @@ module Whats
     def request(path, payload = nil)
       full_path = "#{base_path}#{path}"
 
-      response = Typhoeus.post(
-        full_path,
-        headers: {
-          "Authorization" => "#{token_name} #{token}",
-          "Content-Type" => "application/json"
-        },
-        body: payload && payload.to_json
-      )
+      conn = Faraday.new(url: full_path, headers: headers, ssl: { verify: false })
+      response = conn.post { |request| request.body = body(payload) }
 
-      raise Whats::Errors::RequestError.new("API request error.", response) if response.failure?
+      raise Whats::Errors::RequestError.new("API request error.", response) unless response.success?
 
-      JSON.parse(response.response_body)
+      JSON.parse(response.body)
     end
 
     private
@@ -42,6 +36,17 @@ module Whats
 
     def login
       Whats::Actions::Login.new
+    end
+
+    def headers
+      {
+        "Authorization" => "#{token_name} #{token}",
+        "Content-Type" => "application/json",
+      }
+    end
+
+    def body(payload)
+      payload && payload.to_json
     end
   end
 end
