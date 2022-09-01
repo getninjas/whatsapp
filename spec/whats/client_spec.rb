@@ -66,7 +66,7 @@ RSpec.describe Whats::Client do
         begin
           client.request("/path", payload)
         rescue Whats::Errors::RequestError => error
-          expect(error.response.class).to eq Typhoeus::Response
+          expect(error.response.class).to eq Faraday::Response
         end
       end
     end
