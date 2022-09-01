@@ -13,7 +13,7 @@ module Whats
     def request(path, payload = nil)
       full_path = "#{base_path}#{path}"
 
-      conn = Faraday.new(url: full_path, headers: headers, ssl: { verify: false })
+      conn = Faraday.new(url: full_path, headers: headers)
       response = conn.post { |request| request.body = body(payload) }
 
       raise Whats::Errors::RequestError.new("API request error.", response) unless response.success?
