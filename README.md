@@ -60,7 +60,7 @@ whats.check_contacts(["+5511942424242"])
 
 # output:
 {
-  "results" => [
+  "contacts" => [
     {
       "input" => "+5511942424242",
       "status" => "valid",
