@@ -19,7 +19,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
 
   let(:language) { "en" }
 
-  let(:params) { { "default" => "1234" } }
+  let(:params) { [{ "type" => "text", "text" => "1234" }] }
 
   before do
     Whats.configure { |c| c.base_path = WebmockHelper::BASE_PATH }

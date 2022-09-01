@@ -1,8 +1,6 @@
 # WhatsApp
 
 [![Build Status](https://travis-ci.org/getninjas/whatsapp.svg?branch=master)](https://travis-ci.org/getninjas/whatsapp)
-[![Maintainability](https://api.codeclimate.com/v1/badges/0365e33bf574d4a94b3e/maintainability)](https://codeclimate.com/github/getninjas/whatsapp/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/0365e33bf574d4a94b3e/test_coverage)](https://codeclimate.com/github/getninjas/whatsapp/test_coverage)
 [![Gem Version](https://badge.fury.io/rb/whatsapp.svg)](https://badge.fury.io/rb/whatsapp)
 
 A ruby interface to WhatsApp Enterprise API.
@@ -60,7 +58,7 @@ whats.check_contacts(["+5511942424242"])
 
 # output:
 {
-  "results" => [
+  "contacts" => [
     {
       "input" => "+5511942424242",
       "status" => "valid",

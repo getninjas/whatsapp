@@ -2,7 +2,7 @@
 
 # Dependencies
 require "json"
-require "typhoeus"
+require "faraday_middleware/aws_sigv4"
 
 # Source
 require "whats/configuration"

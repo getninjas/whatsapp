@@ -1,14 +1,17 @@
 {
-  "hsm": {
-    "element_name": "%{ELEMENT_NAME}",
+  "template": {
+    "name": "%{ELEMENT_NAME}",
     "language": {
       "code": "%{LANGUAGE}",
       "policy": "deterministic"
     },
-    "localizable_params": %{PARAMS},
-    "namespace": "%{NAMESPACE}"
+    "namespace": "%{NAMESPACE}",
+    "components": [{
+      "type": "body",
+      "parameters": %{PARAMS}
+    }]
   },
   "recipient_type": "individual",
   "to": "%{USERNAME}",
-  "type": "hsm"
+  "type": "template"
 }
