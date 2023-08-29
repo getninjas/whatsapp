@@ -11,6 +11,6 @@ module Whats
   end
 
   class Configuration
-    attr_accessor :base_path, :user, :password
+    attr_accessor :base_path, :token, :phone_id
   end
 end

@@ -8,8 +8,6 @@ module Whats
       PATH = "/v1/users/login"
 
       def initialize
-        @user = Whats.configuration.user
-        @password = Whats.configuration.password
         @client = Whats::Client.new(encoded_auth, :basic)
       end
 
@@ -32,10 +30,6 @@ module Whats
       def extract_atributes(response)
         @token = response["users"].first["token"]
         @expires_after = response["users"].first["expires_after"]
-      end
-
-      def encoded_auth
-        Base64.encode64("#{@user}:#{@password}").chomp
       end
 
       def valid?

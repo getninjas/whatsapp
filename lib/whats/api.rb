@@ -8,6 +8,8 @@ module Whats
   class Api
     def initialize
       @base_path = Whats.configuration.base_path
+      @token = Whats.configuration.token
+      @phone_id = Whats.configuration.phone_id
     end
 
     def check_contacts(numbers)
@@ -28,8 +30,8 @@ module Whats
       result[number]
     end
 
-    def send_message(username, body)
-      Actions::SendMessage.new(client, username, body).call
+    def send_message(to, body)
+      Actions::SendMessage.new(client, to, body, @phone_id).call
     end
 
     def send_hsm_message(username, namespace, element_name, language, params)
@@ -48,7 +50,7 @@ module Whats
     attr_reader :base_path
 
     def client
-      @client ||= Whats::Client.new
+      @client ||= Whats::Client.new(@token)
     end
   end
 end
