@@ -3,6 +3,7 @@
 require "whats/actions/check_contacts"
 require "whats/actions/send_message"
 require "whats/actions/send_hsm_message"
+require "whats/actions/mark_read"
 
 module Whats
   class Api
@@ -43,6 +44,10 @@ module Whats
         language,
         params
       ).call
+    end
+
+    def mark_read(message_id)
+      Actions::MarkRead.new(client, message_id, @phone_id).call
     end
 
     private
