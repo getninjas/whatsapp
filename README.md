@@ -26,20 +26,20 @@ require "whatsapp"
 
 ### Setting up a WhatsApp Business API Client
 
-For the gem to be useful you need a WhatsApp Business account from Facebook. You can get it here: https://developers.facebook.com/docs/whatsapp/getting-started
-
-That link also has the documentation for the Whatsapp api, which this gem aims to encapsulate.
-After that you should have to containers running, the `whatsapp-core` and `whatsapp-web`
+For the gem to be useful you need:
+- A Facebook Business Manager account
+- A verified business
+- A WhatsApp business account
+  
+Check out: https://developers.facebook.com/docs/whatsapp/on-premises/get-started
 
 ### Configuration
-
-Before you can send messages there's some Configuration to be done. Set the base path, username and password for the `whatsapp-web` container
 
 ```ruby
 Whats.configure do |config|
   config.base_path = "https://example.test"
-  config.user = "admin"
-  config.password = "secret password"
+  config.phone_id = "your phone id"
+  config.token = "your token"
 end
 ```
 
@@ -70,12 +70,50 @@ whats.check_contacts(["+5511942424242"])
 
 ### Send Message
 
-Take a look [here](https://developers.facebook.com/docs/whatsapp/api/messages/text) (WhatsApp Send Message doc) for more information.
-
-*The first parameter is the WhatsApp **username**!*
+Take a look [here](https://developers.facebook.com/docs/whatsapp/api/messages/text) (WhatsApp Send Message doc) and [here](https://developers.facebook.com/docs/messenger-platform/send-messages/templates) (Whatsapp Message Templates) for more information.
 
 ```ruby
-whats.send_message("5511942424242", "Message goes here.")
+# To send a text message
+whats.send_message("5511942424242", "text", "Message goes here.")
+
+# To send a template message
+body = {
+ "messaging_product": "whatsapp",
+ "recipient_type": "individual",
+ "to": "9999999999999",
+ "type": "interactive",
+ "interactive": {
+  "type": "list",
+  "header": {
+   "type": "text",
+   "text": "books"
+  },
+  "body": {
+   "text": "Select genre"
+  },
+  "action": {
+   "button": "genres",
+   "sections": [
+    {
+     "title": "genres",
+     "rows": [
+      {
+       "id": "123",
+       "title": "Terror"
+      },
+      {
+       "id": "456",
+       "title": "fantasy"
+      },
+      ...
+     ]
+    }
+   ]
+  }
+ }
+}
+
+whats.send_message("5511942424242", "interactive", body)
 
 # output:
 {
@@ -85,29 +123,19 @@ whats.send_message("5511942424242", "Message goes here.")
 }
 ```
 
-### Send HSM (templated) messages
-Send a kind of message that will not allow the receiver to flag it as spam since it's template was pre approved by WhatsApp, find more informations [here](https://developers.facebook.com/docs/whatsapp/message-templates)
-
+### Mark Messages as Read
+Take a look [here](https://developers.facebook.com/docs/whatsapp/cloud-api/guides/mark-message-as-read) for more information.
 ```ruby
-whats.send_hsm_message(
-  "+1234567890",
-  "cdb2df51_9816_c754_c5a4_64cdabdcad3e",
-  "purchase_with_credit_card",
-  "en",
-  [ # ordered list of replacements that will happen at the template
-    {default: "$10"},
-    {default: "300"},
-  ]
-)
+whats.mark_read("message_id")
 
 # output:
-
 {
-  "messages": [{
-    "id": "gBEGkYiEB1VXAglK1ZEqA1YKPrU"
-  }]
+  "success": true
 }
 ```
+
+### Receive a Message
+To receive a message you should configure a webhook as explained [here](https://developers.facebook.com/docs/whatsapp/sample-app-endpoints#cloud-api-sample-app-endpoint). Take a look a simple Ruby on Rails example [here](https://github.com/saleszera/whatsapp_echo_bot/blob/main/app/controllers/webhooks_controller.rb)
 
 ## Tests
 
@@ -124,5 +152,3 @@ You can print all stubs using the environment variable `PRINT_STUBS=true` like t
 ```shell
 PRINT_STUBS=true rspec
 ```
-
-All stubs can be seen in the debugging session from the wiki: https://github.com/getninjas/whatsapp/wiki/Debugging
