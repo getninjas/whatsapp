@@ -1,26 +1,24 @@
 # frozen_string_literal: true
 
-require "base64"
-
 module Whats
   module Actions
     class Login
       PATH = "/v1/users/login"
 
-      def initialize
-        @client = Whats::Client.new(encoded_auth, :basic)
+      def initialize(client)
+        @client = client
+        @token = nil
+        @expires_after = nil
       end
 
       def call
-        client.request(PATH)
+        response = client.request(PATH)
+        extract_atributes(response) unless @token
+        @token
       end
 
       def token
-        return @token if valid?
-
-        extract_atributes call
-
-        @token
+        call
       end
 
       private
