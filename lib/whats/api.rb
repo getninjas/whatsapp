@@ -31,8 +31,8 @@ module Whats
       result[number]
     end
 
-    def send_message(to, body)
-      Actions::SendMessage.new(client, to, body, @phone_id).call
+    def send_message(to, type, body)
+      Actions::SendMessage.new(client, to, @phone_id, type, body).call
     end
 
     def send_hsm_message(username, namespace, element_name, language, params)
