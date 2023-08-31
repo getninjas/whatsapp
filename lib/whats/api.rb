@@ -2,7 +2,6 @@
 
 require "whats/actions/check_contacts"
 require "whats/actions/send_message"
-require "whats/actions/send_hsm_message"
 require "whats/actions/mark_read"
 
 module Whats
@@ -33,17 +32,6 @@ module Whats
 
     def send_message(to, type, body)
       Actions::SendMessage.new(client, to, @phone_id, type, body).call
-    end
-
-    def send_hsm_message(username, namespace, element_name, language, params)
-      Actions::SendHsmMessage.new(
-        client,
-        username,
-        namespace,
-        element_name,
-        language,
-        params
-      ).call
     end
 
     def mark_read(message_id)
