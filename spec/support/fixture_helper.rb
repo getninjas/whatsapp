@@ -68,6 +68,18 @@ module FixtureHelper
     load_json("message_sent_with_empty_body_response")
   end
 
+  def mark_read_request(message_id = '')
+    load_json("mark_read_request", MESSAGE_ID: message_id)
+  end
+
+  def mark_read_response
+    load_json("mark_read_response")
+  end
+
+  def mark_read_invalid_response
+    load_json("mark_read_invalid_response")
+  end
+
   def login_response(token)
     load_json "login_response", token: token
   end

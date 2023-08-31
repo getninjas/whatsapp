@@ -9,6 +9,7 @@ module WebmockHelper
   CHECK_CONTACTS_URL = "#{BASE_PATH}#{Whats::Actions::CheckContacts::PATH}"
   SEND_MESSAGE_URL   = "#{BASE_PATH}#{Whats::Actions::SendMessage::PATH}"
   LOGIN_URL          = "#{BASE_PATH}#{Whats::Actions::Login::PATH}"
+  MARK_READ_URL      = "#{BASE_PATH}#{Whats::Actions::MarkRead::PATH}"
 
   def stub_check_contacts_with_valid_number(contact, wa_id)
     stub_default(
@@ -82,6 +83,26 @@ module WebmockHelper
       request_body: "",
       response_body: login_response(token),
       headers: { "Authorization" => "Basic dXNlcm5hbWU6c2VjcmV0X3Bhc3N3b3Jk" }
+    )
+  end
+
+  def stub_mark_read_with_valid_params(message_id, phone_id)
+    url = URI::DEFAULT_PARSER.escape(MARK_READ_URL % {phone_id: phone_id})
+
+    stub_default(
+      url, 
+      request_body: mark_read_request(message_id),
+      response_body: mark_read_response
+    )
+  end
+
+  def stub_mark_read_with_invalid_params(message_id)
+    url = URI::DEFAULT_PARSER.escape(MARK_READ_URL % {phone_id: phone_id})
+
+    stub_default(
+      url, 
+      request_body: mark_read_request(message_id),
+      response_body: mark_read_invalid_response
     )
   end
 
