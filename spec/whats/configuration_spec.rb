@@ -24,27 +24,27 @@ RSpec.describe Whats, ".configuration" do
     end
   end
 
-  context "when user is configured" do
-    let(:user) { "user" }
+  context "when phone_id is configured" do
+    let(:phone_id) { "phone_id" }
 
     before do
-      Whats.configure { |config| config.user = user }
+      Whats.configure { |config| config.phone_id = phone_id }
     end
 
-    it "is expeted that the user is configure" do
-      expect(Whats.configuration.user).to be user
+    it "is expeted that the phone_id is configure" do
+      expect(Whats.configuration.phone_id).to be phone_id
     end
   end
 
-  context "when password is configured" do
-    let(:password) { "password" }
+  context "when token is configured" do
+    let(:token) { "token" }
 
     before do
-      Whats.configure { |config| config.password = password }
+      Whats.configure { |config| config.token = token }
     end
 
-    it "is expeted that the password is configure" do
-      expect(Whats.configuration.password).to be password
+    it "is expeted that the token is configure" do
+      expect(Whats.configuration.token).to be token
     end
   end
 end
