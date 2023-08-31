@@ -3,10 +3,9 @@ language: ruby
 sudo: false
 
 rvm:
-  - 2.6.3
-  - 2.7.2
+  - 3.2.2
 
-before_install: gem install bundler -v 1.16.2
+before_install: gem install bundler -v 2.4.0
 
 env:
   - PRINT_STUBS=true
