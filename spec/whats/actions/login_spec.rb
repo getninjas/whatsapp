@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "base64"
 
 RSpec.describe Whats::Actions::Login do
   include WebmockHelper
@@ -9,21 +8,24 @@ RSpec.describe Whats::Actions::Login do
   before do
     Whats.configure do |config|
       config.base_path = WebmockHelper::BASE_PATH
-      config.user = "username"
-      config.password = "secret_password"
+      config.phone_id = "9999999999999"
+      config.token = "toooo.kkkkk.eeeen"
     end
   end
 
   describe "#token" do
-    subject { described_class.new.token }
-
     let(:token) { "toooo.kkkkk.eeeen" }
-    let(:credential) { Base64.encode64("username:secret_password").chomp }
 
-    before { stub_login token, credential }
+    before { stub_login(token) }
 
     it "returns a valid token" do
-      is_expected.to eq token
+      client = instance_double(Whats::Client)
+      allow(client).to receive(:request).with("/v1/users/login").and_return({ "users" => [{ "token" => token }] })
+
+      login_instance = described_class.new(client)
+      extracted_token = login_instance.token
+
+      expect(extracted_token).to eq(token)
     end
   end
 end

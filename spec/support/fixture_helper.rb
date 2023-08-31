@@ -37,8 +37,8 @@ module FixtureHelper
     )
   end
 
-  def send_message_request(username:, body:)
-    load_json("send_message_request", USERNAME: username, BODY: body)
+  def send_message_request(wa_id:, body:)
+    load_json("send_message_request", WA_ID: wa_id, BODY: body)
   end
 
   def send_hsm_message_request(username:, namespace:, element_name:, language:, params: {})

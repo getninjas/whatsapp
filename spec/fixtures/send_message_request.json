@@ -1,6 +1,7 @@
 {
+  "messaging_product": "whatsapp",
   "recipient_type": "individual",
-  "to": "%{USERNAME}",
+  "to": "%{WA_ID}",
   "type": "text",
   "text": {
     "body": "%{BODY}"

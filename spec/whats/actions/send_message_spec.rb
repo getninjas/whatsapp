@@ -4,22 +4,26 @@ require "spec_helper"
 
 RSpec.describe Whats::Actions::SendMessage do
   include WebmockHelper
+  
+  before do
+    Whats.configure do |config|
+      config.base_path = WebmockHelper::BASE_PATH
+      config.phone_id = "9999999999999"
+      config.token = "toooo.kkkkk.eeeen"
+    end
+  end
 
-  subject(:action) { described_class.new(client, wa_id, body) }
+  subject(:action) { described_class.new(client, wa_id, phone_id, type, body) }
 
   let(:client) { Whats::Client.new double(token: "key") }
-
   let(:wa_id) { "5511944442222" }
-
+  let(:phone_id) { Whats.configuration.phone_id }
+  let(:type) { "text" }
   let(:body) { "Message!" }
-
-  before do
-    Whats.configure { |c| c.base_path = WebmockHelper::BASE_PATH }
-  end
 
   describe "#call" do
     context "with valid params" do
-      before { stub_send_message_with_valid_response(wa_id, body) }
+      before { stub_send_message_with_valid_response(phone_id, wa_id, body) }
 
       it "returns message_in in the payload" do
         expect(action.call).to eq "messages" => { "id" => "ID" }
@@ -29,7 +33,7 @@ RSpec.describe Whats::Actions::SendMessage do
     context "with unknown contact" do
       let(:wa_id) { "123" }
 
-      before { stub_send_message_with_unknown_contact_response(wa_id, body) }
+      before { stub_send_message_with_unknown_contact_response(phone_id, wa_id, body) }
 
       it "returns payload as nil" do
         expect(action.call["messages"]).to be_nil
@@ -47,7 +51,7 @@ RSpec.describe Whats::Actions::SendMessage do
     context "with an empty wa_id" do
       let(:wa_id) { "" }
 
-      before { stub_send_message_with_empty_wa_id_response(body) }
+      before { stub_send_message_with_empty_wa_id_response(phone_id, body) }
 
       it "returns payload as nil" do
         expect(action.call["messages"]).to be_nil
@@ -64,7 +68,7 @@ RSpec.describe Whats::Actions::SendMessage do
     context "with an empty body" do
       let(:body) { "" }
 
-      before { stub_send_message_with_empty_body_response(wa_id) }
+      before { stub_send_message_with_empty_body_response(phone_id, wa_id) }
 
       it "returns payload as nil" do
         expect(action.call["messages"]).to be_nil
@@ -77,5 +81,6 @@ RSpec.describe Whats::Actions::SendMessage do
         )
       end
     end
+
   end
 end

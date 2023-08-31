@@ -7,7 +7,7 @@ module WebmockHelper
 
   BASE_PATH          = "http://test.local"
   CHECK_CONTACTS_URL = "#{BASE_PATH}#{Whats::Actions::CheckContacts::PATH}"
-  SEND_MESSAGE_URL   = "#{BASE_PATH}#{Whats::Actions::SendHsmMessage::PATH}"
+  SEND_MESSAGE_URL   = "#{BASE_PATH}#{Whats::Actions::SendMessage::PATH}"
   LOGIN_URL          = "#{BASE_PATH}#{Whats::Actions::Login::PATH}"
 
   def stub_check_contacts_with_valid_number(contact, wa_id)
@@ -36,67 +36,47 @@ module WebmockHelper
     )
   end
 
-  def stub_send_message_with_valid_response(username, body)
+  def stub_send_message_with_valid_response(phone_id, wa_id, body)
+    url = generate_message_url(phone_id)
+
     stub_default(
-      SEND_MESSAGE_URL,
-      request_body: send_message_request(username: username, body: body),
+      url,
+      request_body: send_message_request(wa_id: wa_id, body: body),
       response_body: message_sent_response
     )
   end
 
-  def stub_send_message_with_unknown_contact_response(username, body)
+  def stub_send_message_with_unknown_contact_response(phone_id, wa_id, body)
+    url = generate_message_url(phone_id)
+
     stub_default(
-      SEND_MESSAGE_URL,
-      request_body: send_message_request(username: username, body: body),
+      url,
+      request_body: send_message_request(wa_id: wa_id, body: body),
       response_body: message_sent_with_unknown_contact_response
     )
   end
 
-  def stub_send_message_with_empty_wa_id_response(body)
+  def stub_send_message_with_empty_wa_id_response(phone_id, body)
+    url = generate_message_url(phone_id)
+
     stub_default(
-      SEND_MESSAGE_URL,
-      request_body: send_message_request(username: "", body: body),
+      url,
+      request_body: send_message_request(wa_id: "", body: body),
       response_body: message_sent_with_empty_wa_id_response
     )
   end
 
-  def stub_send_message_with_empty_body_response(username)
+  def stub_send_message_with_empty_body_response(phone_id, wa_id)
+    url = generate_message_url(phone_id)
+
     stub_default(
-      SEND_MESSAGE_URL,
-      request_body: send_message_request(username: username, body: ""),
+      url,
+      request_body: send_message_request(wa_id: wa_id, body: ""),
       response_body: message_sent_with_empty_body_response
     )
   end
 
-  def stub_send_hsm_message(username, namespace, element_name, language, params: {})
-    stub_default(
-      SEND_MESSAGE_URL,
-      request_body: send_hsm_message_request(
-        username:     username,
-        namespace:    namespace,
-        element_name: element_name,
-        language:     language,
-        params:       params
-      ),
-      response_body: message_sent_response
-    )
-  end
-
-  def stub_send_hsm_message_with_unknown_contact_response(username, namespace, element_name, language, params: {})
-    stub_default(
-      SEND_MESSAGE_URL,
-      request_body: send_hsm_message_request(
-        username:     username,
-        namespace:    namespace,
-        element_name: element_name,
-        language:     language,
-        params:       params
-      ),
-      response_body: message_sent_with_unknown_contact_response
-    )
-  end
-
-  def stub_login(token, credential)
+  def stub_login(token)
     stub_default(
       LOGIN_URL,
       request_body: "",
@@ -117,6 +97,10 @@ module WebmockHelper
       )
 
     print_stub(stub) if ENV["PRINT_STUBS"] == "true"
+  end
+
+  def generate_message_url(phone_id)
+    URI::DEFAULT_PARSER.escape(SEND_MESSAGE_URL % {phone_id: phone_id})
   end
 
   def print_stub(stub)

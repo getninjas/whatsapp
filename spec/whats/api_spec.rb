@@ -93,44 +93,20 @@ RSpec.describe Whats::Api do
   describe "#send_message" do
     let(:action) { instance_double("Whats::Actions::SendMessage", call: "action result") }
 
-    let(:username) { "5511942424242" }
-
+    let(:wa_id) { "5511942424242" }
+    let(:phone_id) { "9999999999999" }
+    let(:type) { "text" }
     let(:body) { "Message" }
 
     before do
       allow(Whats::Actions::SendMessage)
         .to receive(:new)
-        .with(client, username, body)
+        .with(client, wa_id, phone_id, type, body)
         .and_return action
     end
 
     it "calls the specific action" do
-      expect(api.send_message(username, body)).to eq "action result"
-    end
-  end
-
-  describe "#send_hsm_message" do
-    let(:action) { instance_double("Whats::Actions::SendHsmMessage", call: "action result") }
-
-    let(:username) { "5511942424242" }
-
-    let(:namespace) { "namespace" }
-
-    let(:element_name) { "element_name" }
-
-    let(:language) { "en" }
-
-    let(:params) { { key: "value" } }
-
-    before do
-      allow(Whats::Actions::SendHsmMessage)
-        .to receive(:new)
-        .with(client, username, namespace, element_name, language, params)
-        .and_return action
-    end
-
-    it "calls the specific action" do
-      expect(api.send_hsm_message(username, namespace, element_name, language, params)).to eq "action result"
+      expect(api.send_message(wa_id, type, body)).to eq "action result"
     end
   end
 end
