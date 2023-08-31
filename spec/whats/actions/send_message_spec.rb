@@ -81,6 +81,52 @@ RSpec.describe Whats::Actions::SendMessage do
         )
       end
     end
+  end
 
+  describe "#payload" do
+    context "with type 'text'" do
+      it "returns a payload with the correct structure for text messages" do
+        expected_payload = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: wa_id,
+          type: type,
+          text: {
+            body: body
+          }
+        }
+
+        expect(action.send(:payload)).to eq(expected_payload)
+      end
+    end
+
+    context "with type 'interactive'" do
+      let(:type) { "interactive" }
+      let(:body) { { your: "interactive_body" } }
+
+      it "returns a payload with the correct structure for interactive messages" do
+        expected_payload = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: wa_id,
+          type: type,
+          interactive: body
+        }
+
+        expect(action.send(:payload)).to eq(expected_payload)
+      end
+    end
+
+    context "with an unknown type" do
+      let(:type) { "invalid_type" }
+
+      it "raises a RequestError with an appropriate error message" do
+        expect { action.send(:payload) }.to raise_error do |error|
+          expect(error).to be_a(Whats::Errors::RequestError)
+          expect(error.message).to eq("WhatsApp error: type should be 'text' or 'interactive'")
+          expect(error.response).to be_nil
+        end
+      end
+    end
   end
 end
