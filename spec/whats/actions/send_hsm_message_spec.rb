@@ -6,7 +6,7 @@ RSpec.describe Whats::Actions::SendHsmMessage do
   include WebmockHelper
 
   subject(:action) do
-    described_class.new(client, wa_id, namespace, element_name, language, params)
+    described_class.new(client, wa_id, namespace, element_name, language, params, button_params)
   end
 
   let(:client) { Whats::Client.new double(token: "key") }
@@ -20,6 +20,8 @@ RSpec.describe Whats::Actions::SendHsmMessage do
   let(:language) { "en" }
 
   let(:params) { [{ "type" => "text", "text" => "1234" }] }
+
+  let(:button_params) { [{ "type" => "text", "text" => "1234" }] }
 
   before do
     Whats.configure { |c| c.base_path = WebmockHelper::BASE_PATH }

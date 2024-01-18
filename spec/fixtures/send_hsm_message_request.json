@@ -9,6 +9,10 @@
     "components": [{
       "type": "body",
       "parameters": %{PARAMS}
+    },{
+      "type": "button",
+      "sub_type": "url",
+      "parameters": %{PARAMS}
     }]
   },
   "recipient_type": "individual",

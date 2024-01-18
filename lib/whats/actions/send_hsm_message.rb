@@ -5,13 +5,14 @@ module Whats
     class SendHsmMessage
       PATH = "/v1/messages"
 
-      def initialize(client, wa_id, namespace, element_name, language, params)
-        @client       = client
-        @wa_id        = wa_id
-        @namespace    = namespace
+      def initialize(client, wa_id, namespace, element_name, language, params, button_params)
+        @client = client
+        @wa_id = wa_id
+        @namespace = namespace
         @element_name = element_name
-        @language     = language
-        @params       = params
+        @language = language
+        @params = params
+        @button_params = button_params
       end
 
       def call
@@ -20,7 +21,7 @@ module Whats
 
       private
 
-      attr_reader :client, :wa_id, :namespace, :element_name, :language, :params
+      attr_reader :client, :wa_id, :namespace, :element_name, :language, :params, :button_params
 
       def payload
         {
@@ -28,10 +29,7 @@ module Whats
               name: element_name,
               language: language.is_a?(Hash) ? language : language_options(language),
               namespace: namespace,
-              components: [{
-                  type: :body,
-                  parameters: params
-              }]
+              components: components
           },
           recipient_type: :individual,
           to: wa_id,
@@ -44,6 +42,18 @@ module Whats
           code: language,
           policy: :deterministic
         }
+      end
+
+      def components
+        parameters = [{type: :body, parameters: params }]
+
+        parameters << {
+          type: :button,
+          sub_type: 'url',
+          parameters: button_params
+        } if button_params.present?
+
+        parameters
       end
     end
   end
