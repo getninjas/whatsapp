@@ -122,15 +122,17 @@ RSpec.describe Whats::Api do
 
     let(:params) { { key: "value" } }
 
+    let(:button_params) { { key: "value" } }
+
     before do
       allow(Whats::Actions::SendHsmMessage)
         .to receive(:new)
-        .with(client, username, namespace, element_name, language, params)
+        .with(client, username, namespace, element_name, language, params, button_params)
         .and_return action
     end
 
     it "calls the specific action" do
-      expect(api.send_hsm_message(username, namespace, element_name, language, params)).to eq "action result"
+      expect(api.send_hsm_message(username, namespace, element_name, language, params, button_params)).to eq "action result"
     end
   end
 end
