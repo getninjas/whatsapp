@@ -51,7 +51,7 @@ module Whats
           type: :button,
           sub_type: 'url',
           parameters: button_params
-        } if button_params.any?
+        } if button_params.present?
 
         parameters
       end
